@@ -1,0 +1,26 @@
+{
+	// "presets": ["@babel/env", "@babel/react"],
+	"presets": [
+		"@babel/env",
+		[
+			"@babel/react",
+			{
+        "development": true,
+				"runtime": "automatic"
+			}
+		]
+    /* Using any of "@babel/react" or "@babel/preset-react" with
+    the mentioned options will work . 
+    
+    But take care !
+    If you chose "@babel/preset-react", you must remove it from
+    package.json file as an error will be thrown saying
+    "Duplicate plugin/preset detected." 
+    */
+    // ["@babel/preset-react", {
+    //   "development": true,
+    //   "runtime": "automatic"
+    // }]
+	],
+	"plugins": ["@babel/transform-runtime"]
+}
