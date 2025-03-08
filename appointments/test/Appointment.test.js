@@ -72,11 +72,15 @@ describe("AppointmentsDayView", () => {
   const appointments = [
     {
       startsAt: today.setHours(12,0),
-      customer: "Ashley"
+      customer: {
+        firstName: "Ashley"
+      }
     },
     {
       startsAt: today.setHours(13,0),
-      customer: "Jordan"
+      customer: {
+        firstName: "Jordan"
+      }
     },
   ]
 
@@ -135,4 +139,45 @@ describe("AppointmentsDayView", () => {
 
     expect(container.textContent).toMatch('Ashley')
   })
+
+  it("has a button element in each li", async () => {
+
+    await act(async () => {
+      render(<AppointmentsDayView appointments={appointments} />
+    )
+    })
+
+    expect(container.querySelectorAll("li > button")).toHaveLength(2)
+    expect(container.querySelectorAll("li > button")[0].type).toBe('button')
+  })
+
+  it("renders another appointment when selected", async () => {
+
+    await act(async () => {
+      render(<AppointmentsDayView appointments={appointments}/>)
+    })
+
+    const btn = container.querySelectorAll('button')[1]
+    // console.log(`This is btn : ${btn}`);
+
+    await act(async () => {
+      /*  
+      IMPORTANT
+      You should wrap the btn.click() in act() otherwise the
+      effect of the click won't get caught by jest and the test
+      would fail . 
+
+      If we used RTL we would not need to write all of these
+      act()s, but I actually learned a lot by stumbling into
+      these low configuration stuff
+      */
+      btn.click()
+    })
+
+    expect(container.textContent).toMatch("Jordan")
+  })
 })
+
+/* If you want to run node debugger .
+Maybe you can try it some other day */
+// node --inspect-brk node_modules/.bin/jest --runInBand
