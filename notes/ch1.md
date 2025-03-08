@@ -57,7 +57,7 @@ bundle .
 [You can check the docs for more
 info](https://babeljs.io/docs/babel-runtime)
 
-- Why do we need .babelrc file ?
+- Why do we need .babelrc file ?  
 => To activate the plugins, you need to add them in this file  
 
 - What about .babelrc (why is it named that way)?
@@ -112,10 +112,10 @@ How do you get a line break in your md file ?
 However, [this is no longer the
 case](https://jestjs.io/blog/2021/05/25/jest-27#flipping-defaults)
 . You have to manually download `jsdom` as it is no longer shipped
-by default with jest .  
+with jest by default. 
 
 An error message appeared to me pointing to that, and I found
-this article mentioning this issue . 
+[this article mentioning this issue](https://jestjs.io/blog/2021/05/25/jest-27#flipping-defaults) . 
 
 Also, in jest github releases (release 28 as mentioned by the
 error) message, they [mentioned
@@ -211,21 +211,37 @@ But still we have 1 last problem  :
 
 The error message that is displayed on running the tests :   
 >[DEP0040] DeprecationWarning: The `punycode` module is
->deprecated. Please use a userland alternative instead.
+>deprecated. Please use a userland alternative instead.  
 
 It took me some time to tackle this issue, and long story short,
-ignore it !
-I think on using RTL you won't face it .
+ignore it !  
+I think on using RTL you won't face it .  
 But since we are using packages ourselves here, a package called
 tr46 being used by a subpackage in jest-environment-jsdom is
-using an older verion of it (v 3.0 instead of v 5.0)
+using an older verion of it (v 3.0 instead of v 5.0) .  
+
+How did I know that ?  
+=> Chat suggested using `npm ls package-name` to know which other
+packages are depending on that specific package .  
 
 I spent some time to force every package to use the latest
 version, but things are getting tedious and **I came here to learn
-testing not solve package issues** . 
+testing not solve package issues** .  
 
 So I am keeping this problem as it is . 
 
+___
+### A note about refacotring 
+>We're in the middle of a red test. We should never refactor,
+>rework, or otherwise change course while we're red.  
+>What we'll have to do is ignore, or pend, this test we're
+>working on
 
+Why can't we refactor while in red ?  
+=> Following the [red-green-refactor
+style](https://www.codecademy.com/article/tdd-red-green-refactor),
+we need not to introduce any code changes while having red tests .
+We should focus on either fixing or skipping them for now if we
+wanted to change the tested code . 
 
 
