@@ -1,0 +1,1 @@
+(()=>{"use strict";alert("hello webpack world ! After using the alias command")})();

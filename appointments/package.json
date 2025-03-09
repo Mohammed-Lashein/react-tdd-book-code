@@ -4,7 +4,8 @@
   "description": "Appointments system",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack --mode=production"
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +14,11 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "babel-jest": "",
+    "babel-loader": "^10.0.0",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.9",

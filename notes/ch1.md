@@ -244,4 +244,17 @@ we need not to introduce any code changes while having red tests .
 We should focus on either fixing or skipping them for now if we
 wanted to change the tested code . 
 
+___
+I thought this chapter had enough surprises to introduce, but
+seeing webpack at the end seems the writer has a different
+opinion !  
 
+What is babel-loader and why do we need it ?
+Let's discuss roles here : 
+1. Babel : Transpiles modern JS to old ones
+2. Webpack : Bundles js files or assets in general
+3. babel-loader : 
+   1. A 3rd party package (not maintained by webpack but babel, as
+      stated in babel docs)
+   2. Enables webpack to bundle the assets transpiled by babel
+   3. In other words, it is a bridge between babel and webpack
