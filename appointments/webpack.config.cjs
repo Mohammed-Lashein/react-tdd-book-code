@@ -18,7 +18,7 @@ module.exports = {
 		fullySpecified: false,
 	},
 	mode: 'development',
-	// watch: true
+	watch: true,
 	module: {
 		rules: [
 			{

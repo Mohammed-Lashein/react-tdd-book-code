@@ -11,3 +11,4 @@ export const sampleAppointments = [
 	{ startsAt: at(16), customer: { firstName: 'Jules' } },
 	{ startsAt: at(17), customer: { firstName: 'Stevie' } },
 ]
+// exercise data
