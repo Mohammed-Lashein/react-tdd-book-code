@@ -5,11 +5,11 @@ import React from 'react'
 // when the iterpreter reaches the <Appointment .. probably
 // because now babel con't do its work)
 import { createRoot } from 'react-dom/client'
-import { Appointment, AppointmentsDayView } from '../../src/AppointmentsDayView'
+import { Appointment, AppointmentsDayView } from '../../src/exercises/ch1/ExerciseAppointmentsDayView'
 import { StrictMode } from 'react'
 import { act } from 'react'
 
-describe("Appointment exercises", function() {
+describe("Exercise Appointment", function() {
   const appointment = {
     customer: {
       firstName: "AB",
@@ -38,7 +38,23 @@ describe("Appointment exercises", function() {
       render(<Appointment appointment={appointment}/>)
     })
 
-    expect(container.querySelector('table')).toHaveLength(1)
+    expect(container.querySelector('table')).not.toBeNull()
+  })
+
+  /* We shouldn't test implementation details and I see that this
+ is over-engineering, and if we changed anything in the
+ implementation a lot of tests would fail
+  So, I won't write a test to check every available property . 
+
+  Also testing the existence of other appointement data will be
+  the same code, so repitition is unnecessary here . 
+ */
+  test("displays customer full name", async function() {
+    await act(async () => {
+      render(<Appointment appointment={appointment}/>)
+    })
+
+    expect(container.textContent).toMatch('Customer AB cd')
   })
 })
 

@@ -1,7 +1,9 @@
+// This file is important to generate the build specific for this
+// chapter
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppointmentsDayView } from './exercises/ch1/ExerciseAppointmentsDayView.js';
-import { sampleAppointments } from './sampleData';
 import { exercisesSampleAppointments } from './exerciseSampleData';
 
 
