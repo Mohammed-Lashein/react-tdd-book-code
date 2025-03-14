@@ -1,5 +1,5 @@
 import { act } from 'react';
-import { createContainer } from './domManipulators';
+import { createContainer } from '../src/exercises/ch1/test/domManipulators';
 
 
 describe("CustomerForm", () => {

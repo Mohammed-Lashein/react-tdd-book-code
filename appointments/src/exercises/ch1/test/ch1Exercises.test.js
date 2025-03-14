@@ -5,7 +5,7 @@ import React from 'react'
 // when the iterpreter reaches the <Appointment .. probably
 // because now babel con't do its work)
 import { createRoot } from 'react-dom/client'
-import { Appointment, AppointmentsDayView } from '../../src/exercises/ch1/ExerciseAppointmentsDayView'
+import { Appointment, AppointmentsDayView } from '../ExerciseAppointmentsDayView'
 import { StrictMode } from 'react'
 import { act } from 'react'
 
