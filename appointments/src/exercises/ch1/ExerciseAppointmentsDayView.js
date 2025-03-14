@@ -1,8 +1,6 @@
 // import React from 'react'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { exercisesSampleAppointments } from '../../exerciseSampleData'
-
-console.log(exercisesSampleAppointments)
 
 const appointmentTimeOfDay = (startsAt) => {
 	const [h, m] = new Date(startsAt).toTimeString().split(':')
@@ -38,21 +36,18 @@ export const Appointment = ({ appointment }) => {
 	// This const is so important because calling
 	// appointmentTimeOfDay directly in the returned tags will
 	// cause infinite re-renders
-	const { customer, startsAt } = appointment
-	console.log(appointment)
-	// const {startsAt} = appointment
+	const { customer, startsAt} = appointment
 
 	const appointmentHour = appointmentTimeOfDay(startsAt)
-
 	return (
 		<div className='appointment'>
 			<h2>Today's appointment at {appointmentHour}</h2>
 			<table style={{ paddingLeft: '3rem', borderSpacing: '1rem' }}>
 				<tbody>
-					{Object.keys(appointment).map((key) => {
+					{Object.keys(appointment).map((key, i) => {
 						if (key === 'customer') {
 							return (
-								<>
+								<Fragment key={i}>
 									<tr>
 										<td style={{ textDecoration: 'underline' }}>Customer</td>
 										<td>{customer.firstName + ' ' + customer.lastName}</td>
@@ -70,12 +65,12 @@ export const Appointment = ({ appointment }) => {
 										</td>
 										<td>{customer.phoneNumber}</td>
 									</tr>
-								</>
+								</Fragment>
 							)
 						}
 						if (key === 'startsAt') return
 						return (
-							<tr>
+							<tr key={i}>
 								<td style={{ textDecoration: 'underline', textTransform: 'capitalize' }}>{key}</td>
 								<td>{appointment[key]}</td>
 							</tr>
