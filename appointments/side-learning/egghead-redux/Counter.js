@@ -1,6 +1,4 @@
-export const Counter = ({value, onIncrement, onDecrement}) => {
-  console.log('counter comp mounted !');
-  
+export const Counter = ({value, onIncrement, onDecrement}) => {  
   return (
     <>
   <div>{value}</div>

@@ -2,24 +2,20 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createStore } from 'redux'
 import { Counter } from './Counter'
-export function counter(state = 0, action) {
-	if (typeof state === 'undefined') {
-		return 0
-	}
-
-	if (action.type === 'INCREMENT') {
-		return state + 1
-	}
-	if (action.type === 'DECREMENT') {
-		return state - 1
-	}
-	return state
-}
+import { counter } from './reducers'
 
 const store = createStore(counter)
 
 let root
 const render = () => {
+  /*
+  It is important not to re-create the root on each invocation for
+  render method, because you will get a console warning saying that you
+  should reuse the previously created root . 
+  
+  Although it is possible in react to have multiple roots in your app,
+  but I just encountered that warning so I wanted to talk about it 
+  */
   if(!root) {
     root = createRoot(document.getElementById('root'))
   }
@@ -32,8 +28,6 @@ const render = () => {
 			/>
 		</StrictMode>
 	)
-  console.log('rendering !!!');
-  
 }
 store.subscribe(render)
 render()
