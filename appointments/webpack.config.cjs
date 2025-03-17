@@ -8,7 +8,7 @@ module.exports = {
 	enclosed within one dir)*/
 
 	// entry: ['./side-learning/webpack/input.js', './src/index.js', './side-learning/egghead-redux/counterReducer.js'],
-	entry: './side-learning/egghead-redux/counterReducer.js',
+	entry: './side-learning/egghead-redux/storeAndRenderComponent.js',
 	
 	// output: {
 	// 	path: __dirname + '/side-learning/webpack/dist',
@@ -20,6 +20,7 @@ module.exports = {
 		fullySpecified: false,
 	},
 	mode: 'development',
+	devtool: "source-map",
 	watch: true,
 	module: {
 		rules: [
@@ -27,7 +28,7 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
 				resolve: {
-					extensions: ['.js'],
+					extensions: ['.js', '.jsx'],
 					fullySpecified: false,
 				},
 				use: {

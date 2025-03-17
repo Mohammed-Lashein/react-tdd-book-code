@@ -2,9 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createStore } from 'redux'
 import { Counter } from './Counter'
-import { counter } from './reducers'
+import { counter, todoApp, todos, manualTodoApp } from './reducers'
 
-const store = createStore(counter)
+const store = createStore(todoApp)
+// It works !
+// const store = createStore(manualTodoApp)
 
 let root
 const render = () => {
@@ -21,19 +23,39 @@ const render = () => {
   }
 	root.render(
 		<StrictMode>
-			<Counter
+			{/* This component is no longer relevant since we are working now
+			with todos, and passing an obj trying to display its value in 
+			jsx will result in the error -- Uncaught Error: Objects are not valid as a React child */}
+			{/* <Counter
 				value={store.getState()}
 				onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
 				onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
-			/>
+			/> */}
 		</StrictMode>
 	)
 }
 store.subscribe(render)
 render()
+
+console.log('this is initial state');
+console.log(store.getState());
+store.dispatch({
+	type: "ADD_TODO",
+	id: 2,
+	text: "added manually",
+})
+console.log(store.getState());
+store.dispatch({
+	type: "SET_VISIBILITY_FILTER",
+	filter: 'SHOW_COMPLETED'
+})
+console.log(store.getState());
+
+
+
+
 // document.addEventListener('click', () => store.dispatch({ type: 'INCREMENT' }))
 
-// manual store implementation
 
 // manually implement createStore
 const MyManualcreateStore = (reducer) => {
