@@ -1,3 +1,4 @@
 // import { sayHello } from './greetings.js'
 import { sayHello } from './greetings'
-sayHello()
+// I commented the annoying blocking alert
+// sayHello()

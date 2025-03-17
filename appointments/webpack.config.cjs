@@ -7,7 +7,9 @@ module.exports = {
 	webpack for beginners book (so that all of the book code is
 	enclosed within one dir)*/
 
-	// entry: './side-learning/webpack/input.js',
+	// entry: ['./side-learning/webpack/input.js', './src/index.js', './side-learning/egghead-redux/counterReducer.js'],
+	entry: './side-learning/egghead-redux/counterReducer.js',
+	
 	// output: {
 	// 	path: __dirname + '/side-learning/webpack/dist',
 	// },
