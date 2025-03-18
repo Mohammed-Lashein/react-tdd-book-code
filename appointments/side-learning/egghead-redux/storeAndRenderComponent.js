@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { createStore } from 'redux'
 import { Counter } from './Counter'
 import { counter, todoApp, todos, manualTodoApp } from './reducers'
+import TasksApp from './TasksApp'
 
-const store = createStore(todoApp)
+export const store = createStore(todoApp)
 // It works !
 // const store = createStore(manualTodoApp)
 
@@ -21,6 +22,7 @@ const render = () => {
   if(!root) {
     root = createRoot(document.getElementById('root'))
   }
+
 	root.render(
 		<StrictMode>
 			{/* This component is no longer relevant since we are working now
@@ -31,6 +33,7 @@ const render = () => {
 				onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
 				onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
 			/> */}
+			<TasksApp todos={store.getState().todos}/>
 		</StrictMode>
 	)
 }
@@ -41,7 +44,7 @@ console.log('this is initial state');
 console.log(store.getState());
 store.dispatch({
 	type: "ADD_TODO",
-	id: 2,
+	id: 'pudding',
 	text: "added manually",
 })
 console.log(store.getState());

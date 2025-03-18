@@ -10,3 +10,6 @@ Reducers :
 1. They are the state mutators in our app
 2. They should be pure functions
 3. On changing a part of the state, we don't need to copy the full state again, we can keep reference to the unchanged parts (I don't know how yet)
+
+Some useful links : 
+- [using refs (the callback pattern and the createRef fn from react)](https://legacy.reactjs.org/docs/refs-and-the-dom.html)
