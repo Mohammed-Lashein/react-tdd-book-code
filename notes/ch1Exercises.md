@@ -71,3 +71,11 @@ ___
 ### Jest extended matchers syntax 
 [From the docs,](https://jestjs.io/docs/expect#custom-matchers-api) the syntax is :  
 > Matchers are called with the argument passed to `expect(x)` followed by the arguments passed to `.yourMatcher(y, z)`
+
+___
+In one of the tests for this chapter exercises, the title of the test was **renders (an) li for each appointment** . I thought that using an here is more pronouncable , but I thought it also violates grammar language .  
+After asking chat, he told me that using **an** is correct since the pronunciation of the word *li* here starts with a vowel, so we should use *an* instead of *a*  .
+
+The rule for choosing **"a"** or **"an"** is based on **sound**, **not spelling**.
+
+Similar examples are like 'an honor' and 'an MRI'  . 
