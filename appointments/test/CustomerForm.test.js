@@ -15,7 +15,10 @@ describe("CustomerForm", () => {
     expect(formEl).not.toBeNull()
     expect(formEl.tagName).toBe("INPUT")
     expect(formEl.type).toBe("text")
-
+  }
+  const firstNameField = () => {
+    const field = form('customer').elements.first_name
+    return field
   }
 
   it('renders a form', async () => {
@@ -38,7 +41,7 @@ describe("CustomerForm", () => {
     await act(async () => {
       render(<CustomerForm firstName={firstName}/>)
     })
-    const field = form('customer').elements.first_name
-    expect(field.value).toBe("Ashley")
+   
+    expect(firstNameField().value).toBe("Ashley")
   })
 })
