@@ -29,7 +29,7 @@ function AvailableAppointmentTimes({ appointments, selectedAppointment, setSelec
 	)
 }
 
-/* No need to manually import React here as babel will do it
+/* No need to manually import React here (in order not to get an error since we have a function that returns jsx, which isn't valid js )as babel will do it
 thanks to the new config we added ("runtime": "automatic")  */
 
 export const Appointment = ({ appointment }) => {
