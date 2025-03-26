@@ -25,7 +25,7 @@ export const element = (selector) => {
   return document.querySelector(selector)
 };
 export const elements = (selector) => {
-  return document.querySelectorAll(selector)
+  return Array.from(document.querySelectorAll(selector))
 };
 export const typesOf = (elements) => {
   return elements.map((el) => el.type)
