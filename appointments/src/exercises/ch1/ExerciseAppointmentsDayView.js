@@ -33,11 +33,11 @@ function AvailableAppointmentTimes({ appointments, selectedAppointment, setSelec
 thanks to the new config we added ("runtime": "automatic")  */
 
 export const Appointment = ({ appointment }) => {
+	const { customer, startsAt} = appointment
+	
 	// This const is so important because calling
 	// appointmentTimeOfDay directly in the returned tags will
 	// cause infinite re-renders
-	const { customer, startsAt} = appointment
-
 	const appointmentHour = appointmentTimeOfDay(startsAt)
 	return (
 		<div className='appointment'>

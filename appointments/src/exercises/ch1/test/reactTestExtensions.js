@@ -33,3 +33,6 @@ export const typesOf = (elements) => {
 export const textOf = (elements) => {
   return elements.map((el) => el.textContent)
 };
+export const appointmentTable = () => {
+  return element('.appointment > table')
+}
