@@ -33,7 +33,7 @@ const render = () => {
 				onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
 				onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
 			/> */}
-			<TasksApp todos={store.getState().todos}/>
+			<TasksApp {...store.getState()}/>
 		</StrictMode>
 	)
 }
@@ -50,7 +50,7 @@ store.dispatch({
 console.log(store.getState());
 store.dispatch({
 	type: "SET_VISIBILITY_FILTER",
-	filter: 'SHOW_COMPLETED'
+	filter: 'SHOW_ALL '
 })
 console.log(store.getState());
 
