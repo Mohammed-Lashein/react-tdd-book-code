@@ -25,12 +25,26 @@ describe("toHaveClass Matcher", function() {
       className: 'class1'
     }
     const res = toHaveClass(domElement, 'yay')
-    console.log(res.message());
+    // console.log(res.message());
     
     expect(stripTerminalColor(res.message())).toContain(
       `expect(element).toHaveClass("yay")`
     )
-    // expect(true).toBe(true)
   })
 
+  it("shows the custom message that contains actual class", () => {
+    const domElement = {
+      className: 'class1'
+    }
+    const res = toHaveClass(domElement, 'classic');
+    expect(stripTerminalColor(res.message())).toContain(`Actual classes: ["class1"]`)
+  })
+
+  it("returns a message with empty array if there are no classes", () => {
+    const domElement = {
+      className: ''
+    }
+    const res = toHaveClass(domElement, 'classic');
+    expect(stripTerminalColor(res.message())).toContain(`Actual classes: []`)
+  })
 })

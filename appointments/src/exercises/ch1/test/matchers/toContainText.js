@@ -9,7 +9,7 @@ export const toContainText = (receivedDomNode, expectedText) => {
   const sourceHint = () => {
     // matcherHint(name, receivedType, expectedType, options)
     return matcherHint('toContainText', 'element', printExpected
-      (expectedText), {isNot: pass})
+      (expectedText), {isNot: !pass})
       // isNot : Jest uses it to know if this matcher is being negated
   }
 

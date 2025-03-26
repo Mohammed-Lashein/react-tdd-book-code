@@ -66,3 +66,8 @@ If we didn't use neither `printExpected` nor `printReceived`, we will get the ou
 instead of both values being a string (In the code they are both strings, but on logging to the terminal `yay` was not wrapped in quotes, which caused text mismatch resulting in test failure)
 
 I personally don't understand the behavior myself, so just stick to jest utils to get everything in correct place . 
+___
+
+### Jest extended matchers syntax 
+[From the docs,](https://jestjs.io/docs/expect#custom-matchers-api) the syntax is :  
+> Matchers are called with the argument passed to `expect(x)` followed by the arguments passed to `.yourMatcher(y, z)`
