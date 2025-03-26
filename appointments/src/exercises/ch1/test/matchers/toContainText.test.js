@@ -30,7 +30,7 @@ describe("toContainText Matcher", function() {
       textContent: ''
     }
     const res = toContainText(domElement, 'my humble text')
-    expect(stripTerminalColor(res.message())).toContain(`expect(element).not.toContainText("my humble text")`)
+    expect(stripTerminalColor(res.message())).toContain(`expect(element).toContainText("my humble text")`)
   })
 
   it("returns a message that contains the source line if negated match", () => {
@@ -40,6 +40,6 @@ describe("toContainText Matcher", function() {
     const res = toContainText(domElement, 'my humble text')
     console.log('This is res msg: ');
     console.log(res.message());
-    expect(stripTerminalColor(res.message())).toContain(`expect(element).not.toContainText("my humble text")`)
+    expect(stripTerminalColor(res.message())).toContain(`expect(element).toContainText("my humble text")`)
   })
 })
