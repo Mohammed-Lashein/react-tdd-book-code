@@ -15,3 +15,8 @@ I don't understand what he means by that .
 > Why ? Because calling the fn multiple times in production will result in unnecessarily re-querying the DOM for an element that could have been stored in a variable 
 
 ___
+How to dispatch an event on a DOM el even though event dispatching needs a browser to work ?  
+=> [Use act()](https://react.dev/reference/react/act#dispatching-events-in-tests)
+___
+Adding state instead of props to CustomerForm and testing it :  
+[I wrote a good article about that . You can check it out]()
