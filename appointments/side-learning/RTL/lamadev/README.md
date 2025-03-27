@@ -1,0 +1,1 @@
+Here I document the code I used on [learning RTL from lamadev course](https://www.youtube.com/watch?v=Flo268xRpV0&ab_channel=LamaDev)

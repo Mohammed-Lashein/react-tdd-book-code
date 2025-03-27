@@ -8,7 +8,8 @@ module.exports = {
 	enclosed within one dir)*/
 
 	// entry: ['./side-learning/webpack/input.js', './src/index.js', './side-learning/egghead-redux/counterReducer.js'],
-	entry: './side-learning/egghead-redux/storeAndRenderComponent.js',
+	// entry: './side-learning/egghead-redux/storeAndRenderComponent.js',
+	entry: './side-learning/RTL/lamadev/main.js',
 	
 	// output: {
 	// 	path: __dirname + '/side-learning/webpack/dist',

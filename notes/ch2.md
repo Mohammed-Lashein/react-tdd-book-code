@@ -20,3 +20,11 @@ How to dispatch an event on a DOM el even though event dispatching needs a brows
 ___
 Adding state instead of props to CustomerForm and testing it :  
 [I wrote a good article about that . You can check it out]()
+___
+On testing state updates, you SHOULD use RTL `fireEvent` instead of the browser's native `dispatchEvent` . Why ?  
+=> Because on using the browser's native `dispatchEvent`, the DOM updates aren't reflected to the DOM since react was not triggered by that . 
+
+Use RTL `fireEvent` instead and avoid re-inventing the wheel .   
+
+But I used the browser's native `submit()` on the form and it worked .  
+=> This is true, but at some point you will be forced to use RTL instead . 
