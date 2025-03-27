@@ -83,29 +83,7 @@ describe("CustomerForm", () => {
       }}/>)
     })
 
-
-    // A failed approach ! Don't use it 
-
-    // await act(async () => {
-    //   /* Since we are not using react utils, we will manually change
-    //   the input value then dispatch an event about that  */
-    //   firstNameField().value = 'Jamie'
-    //   firstNameField().dispatchEvent(new Event('change', {
-    //     bubbles: true
-    //   }))
-    //   // form('customer').submit()
-    // })
-
-    /* React didn't call the onChange handler when we dispatched a synthetic event using
-    the browser's native dispatchEvent() . 
-    
-    So it is better to use RTL and rely on their abstractions other than trying to
-    reinvent the wheel !
-    */
-    await act(async () => {
-      fireEvent.change(firstNameField(), {target: {value: "Jamie"}})
-
-    })
+    fireEvent.change(firstNameField(), {target: {value: "Jamie"}})
 
     await act(async () => {
       form('customer').submit()
