@@ -96,7 +96,12 @@ describe("CustomerForm", () => {
     //   // form('customer').submit()
     // })
 
-    /* React didn't call the onChange handler when we created a synthetic event */
+    /* React didn't call the onChange handler when we dispatched a synthetic event using
+    the browser's native dispatchEvent() . 
+    
+    So it is better to use RTL and rely on their abstractions other than trying to
+    reinvent the wheel !
+    */
     await act(async () => {
       fireEvent.change(firstNameField(), {target: {value: "Jamie"}})
 
