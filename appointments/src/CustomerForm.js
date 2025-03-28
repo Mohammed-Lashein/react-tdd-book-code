@@ -1,20 +1,18 @@
 import { useState } from 'react'
 
-export function CustomerForm({ firstName, onSubmit }) {
-  // const customer = {firstName}
-const [customer, setCustomer] = useState({firstName})
-function handleFirstNameChange(e) {
-  console.log('this is e ');
-  console.log(e);
+export function CustomerForm({ first_name, onSubmit }) {
+  // const customer = {first_name}
+const [customer, setCustomer] = useState({first_name})
+function handleFirst_nameChange(e) {
   setCustomer({
     ...customer,
-    firstName: e.target.value
+    first_name: e.target.value
   })
 }
 	return (
 		<form id='customer' onSubmit={() => {
-      console.log("From CustomerForm component firstname value : ");
-      console.log(customer.firstName);
+      console.log("From CustomerForm component first_name value : ");
+      console.log(customer.first_name);
       
       onSubmit(customer)
     }}>
@@ -24,9 +22,9 @@ function handleFirstNameChange(e) {
 			<input
 				type='text'
 				name='first_name'
-				value={customer.firstName}
+				value={customer.first_name}
         id='first_name'
-        onChange={(e) => handleFirstNameChange(e)}
+        onChange={(e) => handleFirst_nameChange(e)}
 			/>
 		</form>
 	)

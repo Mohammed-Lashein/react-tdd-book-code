@@ -16,8 +16,8 @@ describe("CustomerForm", () => {
     expect(formEl.tagName).toBe("INPUT")
     expect(formEl.type).toBe("text")
   }
-  const firstNameField = () => {
-    const field = form('customer').elements.first_name
+  const field = (name) => {
+    const field = form('customer').elements[name]
     return field
   }
   const labelFor = (formEl) => {
@@ -31,64 +31,76 @@ describe("CustomerForm", () => {
     expect(form('customer')).not.toBeNull()
   })
 
-  it('renders the first name field as a text box', async () => {
-    await act(async () => {
-      render(<CustomerForm />)
+  // test factories start
+  function itRendersAsATextBox(fieldName) {
+    it('renders as a text box', async () => {
+      await act(async () => {
+        render(<CustomerForm />)
+      })
+      field(fieldName)
+      expectToBeInputFieldOfTypeText(field(fieldName))
     })
-    const field = form('customer').elements.first_name
-    expectToBeInputFieldOfTypeText(field)
-  })
-
-  it("includes the existing value for the first name", async () => {
-    const firstName = 'Ashley'
-    await act(async () => {
-      render(<CustomerForm firstName={firstName}/>)
+  }
+  function itIncludesExistingValue(fieldName) {
+    it("includes the existing value", async () => {
+      await act(async () => {
+        render(<CustomerForm {... {[fieldName]: 'value'}}/>)
+      })
+    
+      expect(field(fieldName).value).toBe("value")
+    })
+  }
+  // test factories end
+  describe('first name field', () => {
+    
+    itRendersAsATextBox('first_name')
+    itIncludesExistingValue('first_name')
+  
+    it('renders a label', async () => {
+      await act(async () => {
+        render(<CustomerForm />)
+      })
+      expect(labelFor('first_name')).not.toBeNull()
+      expect(labelFor('first_name').textContent).toBe('First name:')
+    })
+    it("assigns an id that matches the label id", async() => {
+      await act(async () => {
+        render(<CustomerForm />)
+      })
+      expect(field('first_name').id).toBe('first_name')
     })
   
-    expect(firstNameField().value).toBe("Ashley")
-  })
-
-  it('renders a label for the first name form field', async () => {
-    await act(async () => {
-      render(<CustomerForm />)
+    it("saves existing value when submitted", async () => {
+      expect.hasAssertions()
+      await act(async () => {
+        render(<CustomerForm first_name='Ashley' onSubmit={({first_name}) => expect(first_name).toBe('Ashley')}/>)
+      })
+  
+      await act(async () => {
+        form('customer').dispatchEvent(
+          new Event('submit', {bubbles: true})
+        )
+      })
     })
-    expect(labelFor('first_name')).not.toBeNull()
-    expect(labelFor('first_name').textContent).toBe('First name:')
-  })
-  it("assigns an id that matches the label id to the first name field", async() => {
-    await act(async () => {
-      render(<CustomerForm />)
-    })
-    expect(firstNameField().id).toBe('first_name')
-  })
-
-  it("saves existing first name when submitted", async () => {
-    expect.hasAssertions()
-    await act(async () => {
-      render(<CustomerForm firstName='Ashley' onSubmit={({firstName}) => expect(firstName).toBe('Ashley')}/>)
-    })
-
-    await act(async () => {
-      form('customer').dispatchEvent(
-        new Event('submit', {bubbles: true})
-      )
-    })
-  })
-
-  it("saves new first name to state when submitted", async () => {
-    expect.hasAssertions()
-    await act(async () => {
-      render(<CustomerForm firstName='Ashley' onSubmit={(customer) => {
-        expect(customer.firstName).toBe('Jamie')
-      }}/>)
-    })
-
-    fireEvent.change(firstNameField(), {target: {value: "Jamie"}})
-
-    await act(async () => {
-      form('customer').submit()
-      // more verbose
-      // form('customer').dispatchEvent(new Event('submit', {bubbles: true}))
+  
+    it("saves new value to state when submitted", async () => {
+      expect.hasAssertions()
+      await act(async () => {
+        render(<CustomerForm first_name='Ashley' onSubmit={(customer) => {
+          expect(customer.first_name).toBe('Jamie')
+        }}/>)
+      })
+  
+      fireEvent.change(field('first_name'), {target: {value: "Jamie"}})
+  
+      await act(async () => {
+        // logs a warning 
+        // form('customer').submit()
+        // more verbose but works 
+        form('customer').dispatchEvent(new Event('submit', {bubbles: true}))
+      })
     })
   })
+
+
 })
