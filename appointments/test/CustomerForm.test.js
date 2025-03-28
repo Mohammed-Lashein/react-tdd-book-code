@@ -12,7 +12,10 @@ describe('CustomerForm', () => {
 
 	const form = (id) => container.querySelector(`form[id=${id}]`)
 	const expectToBeInputFieldOfTypeText = (formEl) => {
-		expect(formEl).not.toBeNull()
+    /* Since our custom field() function will return undefined in case of element non-
+    existence instead of null, we need to check against undefined not null */
+		// expect(formEl).not.toBeNull()
+		expect(formEl).not.toBeUndefined()
 		expect(formEl.tagName).toBe('INPUT')
 		expect(formEl.type).toBe('text')
 	}
@@ -41,7 +44,7 @@ describe('CustomerForm', () => {
 			expectToBeInputFieldOfTypeText(field(fieldName))
 		})
 	}
-	function itIncludesExistingValue(fieldName) {
+	function itIncludesExistingValuePassedAsAProp(fieldName) {
 		it('includes the existing value', async () => {
 			await act(async () => {
 				/*
@@ -58,15 +61,9 @@ describe('CustomerForm', () => {
 	function itRendersALabelFor(inputName) {
 		function createFormattedLabelTextFromInputName() {
 			const inputNameTokens = inputName.split('_')
-			console.log('this is inputNameTokens')
-			console.log(inputNameTokens)
 			return inputNameTokens
 				.map((token) => {
 					const firstTokenLetterCapitalized = token.slice(0, 1).toUpperCase()
-					console.log('after transform')
-
-					console.log(firstTokenLetterCapitalized + token.slice(1))
-
 					return firstTokenLetterCapitalized + token.slice(1)
 				})
 				.join(' ')
@@ -134,7 +131,7 @@ describe('CustomerForm', () => {
 	// test factories end
 	describe('first name field', () => {
 		itRendersAsATextBox('first_name')
-		itIncludesExistingValue('first_name')
+		itIncludesExistingValuePassedAsAProp('first_name')
 		itRendersALabelFor('first_name')
 		itHasAnIdThatMatchesTheLabelForAttribute('first_name')
 		itSavesExistingValueOnFormSubmission('first_name', 'Jordan')
@@ -142,5 +139,10 @@ describe('CustomerForm', () => {
 	})
   describe("last name field", () => {
     itRendersAsATextBox('last_name')
+    itIncludesExistingValuePassedAsAProp('last_name')
+    itRendersALabelFor('last_name')
+    itHasAnIdThatMatchesTheLabelForAttribute('last_name')
+    itSavesExistingValueOnFormSubmission('first_name', 'Jordan')
+    itSubmitsNewValue('last_name', 'myNewVal')
   })
 })
