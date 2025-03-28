@@ -3,7 +3,7 @@ import { useState } from 'react'
 export function CustomerForm({ first_name, onSubmit }) {
   // const customer = {first_name}
 const [customer, setCustomer] = useState({first_name})
-function handleFirst_nameChange(e) {
+function handleFirstNameChange(e) {
   setCustomer({
     ...customer,
     first_name: e.target.value
@@ -24,7 +24,7 @@ function handleFirst_nameChange(e) {
 				name='first_name'
 				value={customer.first_name}
         id='first_name'
-        onChange={(e) => handleFirst_nameChange(e)}
+        onChange={(e) => handleFirstNameChange(e)}
 			/>
 		</form>
 	)
