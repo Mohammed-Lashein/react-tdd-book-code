@@ -17,7 +17,7 @@ function handleFirst_nameChange(e) {
       onSubmit(customer)
     }}>
       <label htmlFor="first_name">
-      First name: 
+      First Name : 
       </label>
 			<input
 				type='text'
