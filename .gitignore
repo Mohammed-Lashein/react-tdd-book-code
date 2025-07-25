@@ -1,3 +1,4 @@
 node_modules
-dist/
 .DS_Store
+# chat suggested using the below syntax to untrack any dist dir
+**/dist
