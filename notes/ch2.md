@@ -16,7 +16,7 @@ I don't understand what he means by that .
 
 ___
 How to dispatch an event on a DOM el even though event dispatching needs a browser to work ?  
-=> [Use act()](https://react.dev/reference/react/act#dispatching-events-in-tests)
+=> [Use act().](https://react.dev/reference/react/act#dispatching-events-in-tests) And also, we downloaded `jsdom` so you have a fully functional `DOM` to interact with.
 ___
 Adding state instead of props to CustomerForm and testing it :  
 [I wrote a good article about that . You can check it out]()
