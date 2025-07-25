@@ -18,9 +18,6 @@ ___
 How to dispatch an event on a DOM el even though event dispatching needs a browser to work ?  
 => [Use act().](https://react.dev/reference/react/act#dispatching-events-in-tests) And also, we downloaded `jsdom` so you have a fully functional `DOM` to interact with.
 ___
-Adding state instead of props to CustomerForm and testing it :  
-[I wrote a good article about that . You can check it out]()
-___
 On testing state updates, you SHOULD use RTL `fireEvent` instead of the browser's native `dispatchEvent` . Why ?  
 => Because on using the browser's native `dispatchEvent`, the DOM updates aren't reflected to the DOM since react was not triggered by that . 
 
