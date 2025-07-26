@@ -258,3 +258,58 @@ Let's discuss roles here :
       stated in babel docs)
    2. Enables webpack to bundle the assets transpiled by babel
    3. In other words, it is a bridge between babel and webpack
+
+___
+### Regarding ch1 exercises `unique` method in `exerciseSampleData.js`
+Regarding the `unique` method present in `exerciseSampleData.js`, I think it needs some visualization to be understood.
+
+Here is the code snippet to consider:
+```js
+Array.prototype.unique = function () {
+  return this.filter(function (value, index, self) {
+    return self.indexOf(value) === index;
+  });
+};
+const stylists = [0, 1, 2, 3, 4, 5, 6]
+  .map(() => faker.person.firstName())
+  .unique();
+```
+
+Supose that:
+```js
+// an example output
+const stylists = ['Alice', 'Bob', 'Charlie', 'Alice', 'David', 'Eve', 'Bob']
+```
+
+Iterations visualized:
+```js
+  // 1st iteration
+  /* 
+    self.indexOf('Alice') === 0   correct
+  */
+  // 2nd iteration
+  /* 
+    self.indexOf('Bob') === 1   correct
+  */
+  // 3rd iteration
+  /* 
+    self.indexOf('Charlie') === 2   correct
+  */
+  // 4th iteration
+  /* 
+    self.indexOf('Alice') === 3   False! the indexOf call will return 0 since this is the 1st 
+    appearance of Alice
+  */
+  // 5th iteration
+  /* 
+    self.indexOf('David') === 4   correct
+  */
+  // 6th iteration
+  /* 
+    self.indexOf('Eve') === 5   correct
+  */
+  // 7th iteration
+  /* 
+    self.indexOf('Bob') === 6   False! Because Bob's 1st appearance is at index 1
+  */
+```
