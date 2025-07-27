@@ -1,6 +1,7 @@
 import React from 'react'
-import { Appointment, AppointmentsDayView } from '../ExerciseAppointmentsDayView'
+import { ExerciseAppointmentsDayView } from '../ExerciseAppointmentsDayView'
 import { act } from 'react'
+import { ExerciseAppointment } from "../components/ExerciseAppointment"
 import {
 	appointmentTable,
 	element,
@@ -49,7 +50,7 @@ describe('Exercise Appointment', function () {
 
 	it('renders a table', async function () {
 		await act(async () => {
-			render(<Appointment appointment={{}} />)
+			render(<ExerciseAppointment appointment={{}} />)
 		})
 		expect(element('table')).not.toBeNull()
 	})
@@ -61,7 +62,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Ashley')
 	})
@@ -73,7 +74,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Jordan')
 	})
@@ -85,7 +86,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Jones')
 	})
@@ -97,7 +98,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('smith')
 	})
@@ -110,7 +111,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 
 		expect(appointmentTable()).toContainText('AB cd')
@@ -123,7 +124,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 
 		expect(appointmentTable()).toContainText('123456789')
@@ -136,7 +137,7 @@ describe('Exercise Appointment', function () {
 			},
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 
 		expect(appointmentTable()).toContainText('234567890')
@@ -147,7 +148,7 @@ describe('Exercise Appointment', function () {
 			stylist: 'sam',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('sam')
 	})
@@ -157,7 +158,7 @@ describe('Exercise Appointment', function () {
 			stylist: 'Jo',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Jo')
 	})
@@ -166,7 +167,7 @@ describe('Exercise Appointment', function () {
 			service: 'Cut',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Cut')
 	})
@@ -176,7 +177,7 @@ describe('Exercise Appointment', function () {
 			stylist: 'Blow-dry',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('Blow-dry')
 	})
@@ -186,7 +187,7 @@ describe('Exercise Appointment', function () {
 			notes: 'abc',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('abc')
 	})
@@ -196,14 +197,14 @@ describe('Exercise Appointment', function () {
 			notes: 'def',
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 		expect(appointmentTable()).toContainText('def')
 	})
 
 	it('renders an h2 element to diplay the title of the component', async () => {
 		await act(async () => {
-			render(<Appointment appointment={{}} />)
+			render(<ExerciseAppointment appointment={{}} />)
 		})
 		expect(element('h2')).not.toBeNull()
 	})
@@ -215,7 +216,7 @@ describe('Exercise Appointment', function () {
 			startsAt: timestamp,
 		}
 		await act(async () => {
-			render(<Appointment appointment={appointment} />)
+			render(<ExerciseAppointment appointment={appointment} />)
 		})
 
 		expect(element('h2')).toContainText("Today's appointment at 09:00")
@@ -252,49 +253,49 @@ describe('AppointmentsDayView Exercises', function () {
 
 	it('renders a div with the correct id', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={[]} />)
+			render(<ExerciseAppointmentsDayView appointments={[]} />)
 		})
 		expect(element('div#appointmentsDayView')).not.toBeNull()
 	})
 
 	it('renders a ul to display appointments', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		expect(element('div#appointmentsDayView ul')).not.toBeNull()
 	})
 
 	it('renders an li for each appointment', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		expect(elements('div#appointmentsDayView ul li')).toHaveLength(2)
 	})
 
 	it('renders the time of each appointment', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		expect(textOf(elements('li'))).toEqual(['12:00', '13:00'])
 	})
 
 	it('initially shows a message saying there are no appointments today', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={[]} />)
+			render(<ExerciseAppointmentsDayView appointments={[]} />)
 		})
 		expect(element('div#appointmentsDayView')).toContainText('no appointments')
 	})
 
 	it('selects the 1st appointment by default', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		expect(document.body).toContainText('Ashley')
 	})
 
 	it('has a button el in each li', async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		expect(typesOf(elements('li > *'))).toEqual(['button', 'button'])
 	})
@@ -307,7 +308,7 @@ describe('AppointmentsDayView Exercises', function () {
 			the dom . 
 			 */		
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		await act(async () => {
 			secondButton().click()
@@ -317,7 +318,7 @@ describe('AppointmentsDayView Exercises', function () {
 
 	it("adds active class to button when selected", async () => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		await act(async () => {
 			secondButton().click()
@@ -329,7 +330,7 @@ describe('AppointmentsDayView Exercises', function () {
 
 	it("doesn't add active class if button is not selected", async() => {
 		await act(async () => {
-			render(<AppointmentsDayView appointments={twoAppointments} />)
+			render(<ExerciseAppointmentsDayView appointments={twoAppointments} />)
 		})
 		
 		expect(secondButton().className).not.toMatch('active')
