@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppointmentsDayView } from './exercises/ch1/ExerciseAppointmentsDayView.js';
+import { ExerciseAppointmentsDayView } from './components/ExerciseAppointmentsDayView';
 import { exercisesSampleAppointments } from './exerciseSampleData';
 
 
@@ -11,7 +11,7 @@ import { exercisesSampleAppointments } from './exerciseSampleData';
 // domNode.id = 'app'
 const root = createRoot(document.getElementById('root'))
 root.render(
-  <AppointmentsDayView appointments={exercisesSampleAppointments}/>
+  <ExerciseAppointmentsDayView appointments={exercisesSampleAppointments}/>
 )
 
 
