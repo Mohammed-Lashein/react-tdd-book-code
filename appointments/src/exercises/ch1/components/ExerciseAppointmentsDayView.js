@@ -1,7 +1,6 @@
 // import React from 'react'
 import { useState } from 'react'
 import { ExerciseAppointment } from './ExerciseAppointment'
-import { appointmentTimeOfDay } from '../utils'
 import { AvailableAppointmentTimes } from './AvailableAppointmentTimes'
 
 /* No need to manually import React here (in order not to get an error since we have a function that returns jsx, which isn't valid js )as babel will do it
