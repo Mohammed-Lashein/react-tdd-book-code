@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExerciseAppointmentsDayView } from '../ExerciseAppointmentsDayView'
+import { ExerciseAppointmentsDayView } from '../components/ExerciseAppointmentsDayView'
 import { act } from 'react'
 import { ExerciseAppointment } from "../components/ExerciseAppointment"
 import {

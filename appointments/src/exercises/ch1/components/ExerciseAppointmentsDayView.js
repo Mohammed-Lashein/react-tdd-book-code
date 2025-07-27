@@ -1,8 +1,7 @@
 // import React from 'react'
-import { Fragment, useState } from 'react'
-import { exercisesSampleAppointments } from '../../exerciseSampleData'
-import { ExerciseAppointment } from './components/ExerciseAppointment'
-import { appointmentTimeOfDay } from './utils'
+import { useState } from 'react'
+import { ExerciseAppointment } from './ExerciseAppointment'
+import { appointmentTimeOfDay } from '../utils'
 
 
 function AvailableAppointmentTimes({ appointments, selectedAppointment, setSelectedAppointment }) {
