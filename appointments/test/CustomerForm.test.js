@@ -40,11 +40,10 @@ describe('CustomerForm', () => {
 			await act(async () => {
 				render(<CustomerForm />)
 			})
-			field(fieldName)
 			expectToBeInputFieldOfTypeText(field(fieldName))
 		})
 	}
-	function itIncludesExistingValuePassedAsAProp(fieldName) {
+	function itIncludesExistingValuePassedAsAProp(fieldName, value) {
 		it('includes the existing value', async () => {
 			await act(async () => {
 				/*
@@ -52,10 +51,10 @@ describe('CustomerForm', () => {
           render(<CustomerForm [fieldName] = 'value'/>)
           but the above line would cause an error because wrapping the property in square brackets is not valid js
           */
-				render(<CustomerForm original={{...{ [fieldName]: 'value' }}} />)
+				render(<CustomerForm original={{...{ [fieldName]: value }}} />)
 			})
 
-			expect(field(fieldName).value).toBe('value')
+			expect(field(fieldName).value).toBe(value)
 		})
 	}
 	function itRendersALabelFor(inputName) {
@@ -131,7 +130,7 @@ describe('CustomerForm', () => {
 	// test factories end
 	describe('first name field', () => {
 		itRendersAsATextBox('first_name')
-		itIncludesExistingValuePassedAsAProp('first_name')
+		itIncludesExistingValuePassedAsAProp('first_name', 'myFirstName')
 		itRendersALabelFor('first_name')
 		itHasAnIdThatMatchesTheLabelForAttribute('first_name')
 		itSavesExistingValueOnFormSubmission('first_name', 'Jordan')
@@ -139,7 +138,7 @@ describe('CustomerForm', () => {
 	})
   describe("last name field", () => {
     itRendersAsATextBox('last_name')
-    itIncludesExistingValuePassedAsAProp('last_name')
+    itIncludesExistingValuePassedAsAProp('last_name', "myLastName")
     itRendersALabelFor('last_name')
     itHasAnIdThatMatchesTheLabelForAttribute('last_name')
     itSavesExistingValueOnFormSubmission('first_name', 'Jordan')
