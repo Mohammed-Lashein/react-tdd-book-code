@@ -147,3 +147,8 @@ export function CustomerForm({
   }) {
   }
 ```
+____
+**Why running either `npm test` or `npm run test` works? Isn't the 2nd one supposed to be the only version to work?**  
+
+=> You can use any of them and they will work. `npm test` is just an alias for `npm run test`.
+I searched the docs but couldn't find an explicit mention for that, but chat told me that info and I tried it myself and it worked!
