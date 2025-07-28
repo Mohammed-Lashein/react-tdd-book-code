@@ -7,7 +7,7 @@ describe('CustomerForm', () => {
 	let render, container
 
 	beforeEach(() => {
-		;({ render, container } = createContainer())
+		({ render, container } = createContainer())
 	})
 
 	const form = (id) => container.querySelector(`form[id=${id}]`)
