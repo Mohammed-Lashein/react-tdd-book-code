@@ -42,7 +42,6 @@ export function CustomerForm({
       <input
         type='text'
         name='last_name'
-        readOnly
         value={customer.last_name}
         id='last_name'
         onChange={(e) => handleTextInputChange(e, e.target.id)}
