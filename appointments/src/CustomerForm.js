@@ -1,8 +1,15 @@
 import { useState } from "react"
 
-export function CustomerForm({ first_name, onSubmit, last_name }) {
+export function CustomerForm({  
+    original = {
+      first_name: '',
+      last_name: '',
+      phone_number: '',
+    }, 
+    onSubmit  
+  }) {
   // const customer = {first_name}
-  const [customer, setCustomer] = useState({ first_name, last_name })
+  const [customer, setCustomer] = useState(original)
   function handleTextInputChange(e, inputName) {
     // Note that the e obj will be passed to this function
     // since we are expecting args to be passed to it we no longer have access to e object

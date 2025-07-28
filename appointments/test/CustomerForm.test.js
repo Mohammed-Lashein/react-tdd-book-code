@@ -52,7 +52,7 @@ describe('CustomerForm', () => {
           render(<CustomerForm [fieldName] = 'value'/>)
           but the above line would cause an error because wrapping the property in square brackets is not valid js
           */
-				render(<CustomerForm {...{ [fieldName]: 'value' }} />)
+				render(<CustomerForm original={{...{ [fieldName]: 'value' }}} />)
 			})
 
 			expect(field(fieldName).value).toBe('value')
@@ -92,7 +92,7 @@ describe('CustomerForm', () => {
 			await act(async () => {
 				render(
 					<CustomerForm
-						first_name={valueToSaveOnSubmission}
+						original={{[fieldName]: valueToSaveOnSubmission}}
 						onSubmit={(customer) => expect(customer[fieldName]).toBe(valueToSaveOnSubmission)}
 					/>
 				)
