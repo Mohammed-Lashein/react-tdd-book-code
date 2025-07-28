@@ -50,7 +50,7 @@ describe('CustomerForm', () => {
 				/*
           short form of 
           render(<CustomerForm [fieldName] = 'value'/>)
-          but the above line would cause an error because we wrapping the property in square brackets is not valid js
+          but the above line would cause an error because wrapping the property in square brackets is not valid js
           */
 				render(<CustomerForm {...{ [fieldName]: 'value' }} />)
 			})
