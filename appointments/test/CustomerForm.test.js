@@ -144,4 +144,12 @@ describe('CustomerForm', () => {
     itSavesExistingValueOnFormSubmission('first_name', 'Jordan')
     itSubmitsNewValue('last_name', 'myNewVal')
   })
+  describe("phone number field", () => {
+    itRendersAsATextBox('phone_number')
+    itIncludesExistingValuePassedAsAProp('phone_number', '12345')
+    itRendersALabelFor('phone_number')
+    itHasAnIdThatMatchesTheLabelForAttribute('phone_number')
+    itSavesExistingValueOnFormSubmission('phone_number', '12345')
+    itSubmitsNewValue('phone_number', '12345')
+  })
 })
