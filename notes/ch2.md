@@ -137,4 +137,13 @@ After reviewing the writer's code, he mitigated this problem by passing `blankCu
 **What is the solution then?**  
 => We can give a default value for `original` prop when no customer data is passed to the component. I like this approach because it encapsulates the data that the `CustomerForm` needs within it instead of being forced to pass `blankCustomer` every time we need to render `CustomerForm` with no real data.
 ```js
+export function CustomerForm({  
+    original = {
+      first_name: '',
+      last_name: '',
+      phone_number: '',
+    }, 
+    onSubmit  
+  }) {
+  }
 ```
