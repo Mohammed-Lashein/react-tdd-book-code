@@ -108,7 +108,7 @@ describe('CustomerForm', () => {
 			await act(async () => {
 				render(
 					<CustomerForm
-						{...{ [fieldName]: 'existingValue' }}
+						original={{...{ [fieldName]: 'existingValue' }}}
 						onSubmit={(customer) => {
 							expect(customer[fieldName]).toBe(newValue)
 						}}
