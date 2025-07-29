@@ -166,3 +166,25 @@ But after saving the file, I found that prettier re-inserted it!
 After asking chat and [tinkering in prettier docs](https://prettier.io/docs/rationale#semicolons), I found that it is added deliberately.
 
 The docs has a good rationale behind adding that extra `;`, so I will leave you with their examples.
+___
+### webpack and `dist` directory
+After running `npm run build` a couple of times, I noticed that the contents of the `dist` dir are not re-created from scratch as I am used to in vite.  
+After asking chat, he told me that this is the **default behavior** in webpack. We can modify it by: 
+```js
+// webpack.config.js
+module.exports = {
+  output: {
+    clean: true, // This is equivalent to using CleanWebpackPlugin
+  }
+}
+```
+Also, we can configure vite to stop its default behavior of recreating `dist` dir from scratch using:
+```js
+// vite.config.ts
+export default defineConfig({
+  build: {
+    emptyOutDir: false,
+  }
+});
+```
+I haven't personally used these options yet(I am happy that webpack doesn't wipe everything in `dist`). I am keeping it here just for reference.
