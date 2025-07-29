@@ -152,3 +152,17 @@ ____
 
 => You can use any of them and they will work. `npm test` is just an alias for `npm run test`.
 I searched the docs but couldn't find an explicit mention for that, but chat told me that info and I tried it myself and it worked!
+____
+### Prettier and `ASI`
+Given the following block of code:
+```js
+  beforeEach(() => {
+    ;({ render, container } = createContainer())
+  })
+```
+I thought I added a `;` by mistake, so I removed it and called it a day.
+But after saving the file, I found that prettier re-inserted it!
+
+After asking chat and [tinkering in prettier docs](https://prettier.io/docs/rationale#semicolons), I found that it is added deliberately.
+
+The docs has a good rationale behind adding that extra `;`, so I will leave you with their examples.
