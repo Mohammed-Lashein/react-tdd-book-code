@@ -55,6 +55,8 @@ export function CustomerForm({
         id='phone_number'
         onChange={(e) => handleTextInputChange(e, e.target.id)}
       />
+
+      <input type="submit" value="Add" />
     </form>
   )
 }
