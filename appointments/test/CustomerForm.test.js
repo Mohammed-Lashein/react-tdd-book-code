@@ -102,8 +102,8 @@ describe("CustomerForm", () => {
       await render(form("customer").dispatchEvent(new Event("submit", { bubbles: true })))
     })
   }
-
   // test factories end
+  
   describe("first name field", () => {
     itRendersAsATextBox("first_name")
     itIncludesExistingValuePassedAsAProp("first_name", "myFirstName")
