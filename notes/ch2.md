@@ -66,10 +66,10 @@ On running this test:
 ```js
 const form = (id) => container.querySelector(`form[id=${id}]`)
 it('renders a form', async () => {
-	await act(async () => {
-		render(<CustomerForm />)
-	})
-	expect(form('customer')).not.toBeNull()
+  await act(async () => {
+    render(<CustomerForm />)
+  })
+  expect(form('customer')).not.toBeNull()
 })
 ```
 Everything worked.
