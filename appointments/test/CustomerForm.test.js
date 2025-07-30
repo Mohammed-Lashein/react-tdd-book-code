@@ -128,4 +128,9 @@ describe("CustomerForm", () => {
     itSavesExistingValueOnFormSubmission("phone_number", "12345")
     itSubmitsNewValue("phone_number", "12345")
   })
+  it("has a submit button", async () => {
+    await render(<CustomerForm />)
+
+    expect(container.querySelector("input[type='submit']")).not.toBeNull()
+  })
 })

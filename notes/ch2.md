@@ -188,3 +188,7 @@ export default defineConfig({
 });
 ```
 I haven't personally used these options yet(I am happy that webpack doesn't wipe everything in `dist`). I am keeping it here just for reference.
+____
+### Regarding `tailwind` and `webpack` configurations
+I wrote my thoughts in a [notion page](https://www.notion.so/Adding-tailwind-in-a-project-using-webpack-The-definitive-guide-23fd06181235809dac4eeeaf39621956?source=copy_link) that you can view.
+
