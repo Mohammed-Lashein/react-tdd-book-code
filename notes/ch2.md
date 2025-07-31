@@ -283,3 +283,10 @@ We have encountered this situation in a test in `AppointmentForm.test.js`:
   })
 
 ```
+____
+### `AppointmentForm` component props
+At the beginning of the test suites for `AppointmentForm` component, we didn't pass any props. But later we introduced the `services` prop, which will make the 1st tests fail.  
+**Why?**  
+=> Because we will be mapping on a props that don't exist, resulting in the famous error in react projects 
+`Cannot read properties of undefined (reading 'map')`.  
+So, it is important to always provide default values for expected props in case they are not passed in a test.
