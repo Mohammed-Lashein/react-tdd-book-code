@@ -23,6 +23,7 @@ export function AppointmentForm({
           return <option value={service} key={service}>{service}</option>
         })}
       </select>
+      <input type="submit" value="Submit" />
     </form>
   )
 }

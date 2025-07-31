@@ -92,5 +92,10 @@ describe("AppointmentForm", () => {
       form("appointment").dispatchEvent(new Event("submit", {bubbles: true}))
     })
 
+  it("has a submit button", async () => {
+    await render(<AppointmentForm />)
+
+    expect(container.querySelector("input[type='submit']")).not.toBeNull()
+  })
   })
 })
