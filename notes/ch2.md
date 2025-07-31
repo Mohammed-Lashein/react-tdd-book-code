@@ -317,4 +317,28 @@ I am not 100% convinced with this explanation to be frank.
 
 Update: After looking into the displayed errors in the console, I found this:
 `Error: Objects are not valid as a React child (found: [object HTMLFormElement]). If you meant to render a collection of children, use an array instead.`. So it seems that since we dispatched the event on an obj of type `HTMLFormElement` not a react element, we encountered this error.
+____
+### The unusual `>*` selector
+In the book page 89 (on the paper), the writer used this selector:
+```css
+tbody >* th {}
+```
+So what is the difference between it and `tbody th {}`? 🤔  
+After trying different HTML tags combinations, **there is no visible difference between both selectors**.
+Chat claimed that the selector `tbody >* th` won't match a DOM structure like
+```html
+<table>
+  <tbody>
+    <tr>
+      <tr>
+        <th>
+          apple
+        </th>
+      </tr>
+    </tr>
+  </tbody>
+</table>
+```
+Because now `th` isn't a direct child for a direct child of `tbody`.
+However, after experimenting with the browser, the selector **applied the styles correctly**. So there is no need to use this complex selector where we can achieve the same result with just the normal selectors we are all used to.
 
