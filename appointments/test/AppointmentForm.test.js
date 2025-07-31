@@ -54,5 +54,43 @@ describe("AppointmentForm", () => {
 
       expect(findOption(field('service'), 'service2').selected).toBeTruthy()
     })
+
+    // to be wrapped each in a fn as we did in CustomerForm.test.js
+    const labelFor = (formEl) => container.querySelector(`label[for=${formEl}]`)
+    it("renders a label", async () => {
+      await render(<AppointmentForm />)
+
+      expect(labelFor('service')).not.toBeNull()
+    })
+
+    it("has an id that matches the label id", async () => {
+      await render(<AppointmentForm />)
+      expect(field("service").id).toEqual("service")
+    })
+
+    it("saves existing value when submitted", async () => {
+      expect.hasAssertions()
+      
+      const services = ['service1', 'service2']
+      await render(
+      <AppointmentForm services={services} onSubmit={(service) => expect(service).toEqual("")}/>
+      )
+
+      // you may need to wrap the selector in render() in order for react to catch the submit event
+      // Update: Oh! The test passed without needing to wrap form("appointment") in an await render()
+      form("appointment").dispatchEvent(new Event("submit", {bubbles: true}))
+    })
+
+    it("saves new value when submitted", async () => {
+      expect.hasAssertions()
+
+      const services = ['service1', 'service2']
+      await render(
+      <AppointmentForm services={services} selectedService={"service2"}  onSubmit={(service) => expect(service).toEqual("service2")}/>
+      )
+
+      form("appointment").dispatchEvent(new Event("submit", {bubbles: true}))
+    })
+
   })
 })
