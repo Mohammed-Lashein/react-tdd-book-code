@@ -290,3 +290,31 @@ At the beginning of the test suites for `AppointmentForm` component, we didn't p
 => Because we will be mapping on a props that don't exist, resulting in the famous error in react projects 
 `Cannot read properties of undefined (reading 'map')`.  
 So, it is important to always provide default values for expected props in case they are not passed in a test.
+____
+### Syntax gotcha in a test
+Given this test:
+```js
+ it("saves existing value when submitted", async () => {
+      expect.hasAssertions()
+      const services = ['service1', 'service2']
+      await render(
+      <AppointmentForm services={services} selectedService={"service2"} onSubmit={(service) => expect(service).toEqual("service2")}/>
+      )
+
+      await render(form("appointment").dispatchEvent(new Event("submit", {bubbles: true})))
+    })
+```
+Notice that our `dispatchEvent` call is present within the `render` method, whereas if we modified the code a bit like so:
+```js
+// Notice that now dispatchEvent() is being called on the return value of render(), which is root.render()
+ await render(form("appointment")).dispatchEvent(new Event("submit", {bubbles: true}))
+```
+The above line throws a weird error by jest in the terminal that says: ` Jest worker encountered 4 child process exceptions, exceeding retry limit`.
+
+After asking chat, he explained that this happens because `render` returns `undefined`, so we were basically doing `undefined.dispatchEvent()` which throws an error.
+
+I am not 100% convinced with this explanation to be frank.
+
+Update: After looking into the displayed errors in the console, I found this:
+`Error: Objects are not valid as a React child (found: [object HTMLFormElement]). If you meant to render a collection of children, use an array instead.`. So it seems that since we dispatched the event on an obj of type `HTMLFormElement` not a react element, we encountered this error.
+
