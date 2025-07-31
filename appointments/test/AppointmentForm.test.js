@@ -43,5 +43,16 @@ describe("AppointmentForm", () => {
       // I have some explanation for the arrayContaining() matcher in ch2.md 
       expect(renderedServices).toEqual(expect.arrayContaining(services))
     })
+
+    const findOption = (dropdownNode, optionToSelect) => {
+      const options = Array.from(dropdownNode.children)      
+      return options.find((option) => option.textContent === optionToSelect)
+    }
+    it("preselects an existing value", async () => {
+      const services = ['service1', 'service2']
+      await render(<AppointmentForm services={services} selectedService={"service2"}/>)
+
+      expect(findOption(field('service'), 'service2').selected).toBeTruthy()
+    })
   })
 })

@@ -1,7 +1,10 @@
-export function AppointmentForm({services = []}) {  
+export function AppointmentForm({
+  services = [],
+  selectedService = ""
+}) {  
   return (
     <form id="appointment">
-      <select name="service" id="">
+      <select name="service" id="" value={selectedService}>
         <option value=""></option>
         {services.map((service) => {
           return <option value={service} key={service}>{service}</option>
