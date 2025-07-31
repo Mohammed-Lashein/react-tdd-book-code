@@ -219,3 +219,33 @@ Here is how you can access the elements in this form
     to php arrays, where we have keys as both numbers and text
   */
 ```
+____
+### Regarding `select` element having one `option`
+In the given test (from page 82 on paper):
+```js
+ it("initially has a blank value chosen", async () => {
+    await render(<AppointmentForm />)
+    
+    const firstNode = field('service').children[0]
+    
+    expect(firstNode.value).toBe('')
+    expect(firstNode.selected).toBeFalsy()
+  })
+```
+I intentionally wanted to see `firstNode.selected` returning `false`, so I modified my `jsx`:
+```js
+ <select name="service" id="">
+    <option value="" selected={false}></option>
+  </select>
+```
+The big gotcha: The test **was failing** even though I am explicitly saying that I **don't want** this option to be selected!   
+
+So I went to [read in the docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select) and found this line:  
+>Each `<option>` element should have a value attribute containing the data value to submit to the server
+when that option is selected. If no `value` attribute is included, the value defaults to the text contained
+inside the element. You can include a `selected` attribute on an `<option>` element to make it selected by
+default when the page first loads. If no `selected` attribute is specified, the first `<option>` element
+will be selected by default.
+
+That's why my test was always failing. If you don't have a `selected` attribute on an `option` in a `select`
+element, the browser will select the 1st option by default.
