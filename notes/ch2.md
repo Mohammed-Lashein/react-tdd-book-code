@@ -225,7 +225,7 @@ In the given test (from page 82 on paper):
 ```js
  it("initially has a blank value chosen", async () => {
     await render(<AppointmentForm />)
-    
+
     const firstNode = field('service').children[0]
     
     expect(firstNode.value).toBe('')
@@ -249,3 +249,37 @@ will be selected by default.
 
 That's why my test was always failing. If you don't have a `selected` attribute on an `option` in a `select`
 element, the browser will select the 1st option by default.
+___
+### `expect.arrayContaining`
+
+This jest matcher ensures whether the received array contains all elements specified in the expected array.
+Take this good example from google gemini:
+```js
+test('should contain important values in array', () => {
+  const receivedArray = ['apple', 'banana', 'orange', 'grape'];
+  const expectedSubset = ['banana', 'grape'];
+
+  expect(receivedArray).toEqual(expect.arrayContaining(expectedSubset));
+});
+```
+The test doesn't fail when the `receivedArray` contains elements that are not present in the `expectedSubset`.
+
+And to be fair, [jest docs](https://jestjs.io/docs/expect#expectarraycontainingarray) has a better example than the one provided by gemini.
+
+We have encountered this situation in a test in `AppointmentForm.test.js`:
+```js
+  it("lists all salon services", async () => {
+    const services = ['service1', 'service2']
+    await render(<AppointmentForm services={services}/>)
+
+    const optionNodes = Array.from(field('service').children)
+    const renderedServices = optionNodes.map((node) => node.textContent)
+
+    /* 
+      renderedServices = ["", 'service1', 'service2']; // the 1st blank el is due to the 1st option in
+      // the select element having an empty value
+    */
+    expect(renderedServices).toEqual(expect.arrayContaining(services))
+  })
+
+```
