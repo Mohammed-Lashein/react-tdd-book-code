@@ -32,8 +32,9 @@ describe("AppointmentForm", () => {
     it("lists all salon services", async () => {
       const services = ['service1', 'service2']
       await render(<AppointmentForm services={services}/>)
+      const firstOptionElementWhoseValueIsAnEmptyString = 1
 
-      expect(field('service').children.length).toBe(services.length + 1) // My approach.. simple
+      expect(field('service').children.length).toBe(services.length + firstOptionElementWhoseValueIsAnEmptyString) // My approach.. simple
 
       // The book's approach
       const optionNodes = Array.from(field('service').children)
