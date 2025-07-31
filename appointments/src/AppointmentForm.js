@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+function TimeSlotsTable() {
+  return (
+    <table id="timeslots"></table>
+  )
+}
+
 export function AppointmentForm({
   services = [],
   selectedService = "",
@@ -24,6 +30,7 @@ export function AppointmentForm({
         })}
       </select>
       <input type="submit" value="Submit" />
+      <TimeSlotsTable />
     </form>
   )
 }
