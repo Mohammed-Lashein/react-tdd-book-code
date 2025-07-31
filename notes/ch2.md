@@ -191,4 +191,31 @@ I haven't personally used these options yet(I am happy that webpack doesn't wipe
 ____
 ### Regarding `tailwind` and `webpack` configurations
 I wrote my thoughts in a [notion page](https://www.notion.so/Adding-tailwind-in-a-project-using-webpack-The-definitive-guide-23fd06181235809dac4eeeaf39621956?source=copy_link) that you can view.
+____
+### Regarding `form.elements` and `HTMLFormControlsCollection`
 
+So in page 81 (on the paper) in the book, it is shown that we can access form elements through the `elements` property on the form.
+
+And if the elements in the form have names, we can access them through `form.elements[nameGivenToTheElement]`
+
+The `HTMLFormControlsCollection` data structure (or interface to be [more conformant with the docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormControlsCollection)) is also a `NodeList` that updates its elements live.
+
+Given this DOM structure:
+```html
+  <form>
+    <select name='bananaPudding'></select>
+    <input/>
+    <input name='hi-hello'/>
+  </form>
+```
+Here is how you can access the elements in this form
+```js
+  const form = document.querySelector('form')
+  console.log(form.elements)
+  /* 
+    [select, input, input, "bananaPudding:" select," hi-hello": select]
+
+    This data structure is more apparent in the browser, but you will see that we get an array similar
+    to php arrays, where we have keys as both numbers and text
+  */
+```
