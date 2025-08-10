@@ -341,4 +341,62 @@ Chat claimed that the selector `tbody >* th` won't match a DOM structure like
 ```
 Because now `th` isn't a direct child for a direct child of `tbody`.
 However, after experimenting with the browser, the selector **applied the styles correctly**. So there is no need to use this complex selector where we can achieve the same result with just the normal selectors we are all used to.
+____
+### `dailyTimeSlots` function
+I have read this function multiple times, but couldn't fully understand how it works without some examples, so here I explain how it works along with providing the necessary examples:
+```js
+function dailyTimeSlots(salonOpensAt, salonClosesAt) {
+  const totalSlots = (salonClosesAt - salonOpensAt) * 2
+  /* 
+    Let's validate how the algo used to calculate totalSlots work 🙌
 
+    Suppose this scenario: 
+    salonOpensAt=9, salonClosesAt=11
+    Count the available times:
+    [1] 09:00
+    [2] 09:30
+    [3] 10:00
+    [4] 10:30
+
+    So we have 4 time slots. Now let's apply the algo:
+    (11-9)*2 = 4 😮
+
+    Another example: 
+    salonOpensAt=9, salonClosesAt=12
+    Count the available times:
+    [1] 09:00
+    [2] 09:30
+    [3] 10:00
+    [4] 10:30
+    [5] 11:00
+    [6] 11:30
+
+    Now let's apply the algo again: 
+    (12-9)*2 = 6 😮
+  */
+
+   const startTime = new Date().setHours(salonOpensAt, 0, 0, 0)
+   /* 
+    The setHours() method desc from mdn:
+    > Changes the Date object in place, and returns its new timestamp (in ms)
+   */
+
+  const increment = 30 * 60 * 1000
+  /* 
+    Increment with 30 mins but in ms (since the return value by setHours() is in ms)
+  */
+
+   return Array.from({length: totalSlots}, (_, i) => {
+    let timestamp = startTime + i * increment
+    return new Date(timestamp).toLocaleTimeString()
+   })
+   /* 
+    Return an array of salon appointments times eg)
+    ["9:00:00 AM", "9:30:00 AM"]
+
+    Note that this is not an optimal solution, I will come to it later with explanation
+   */
+ 
+
+}
+```
