@@ -14,7 +14,8 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
 }
 function getWeekdaysStartingFrom(todayTimestamp) {
   const incrementADay = 24 * 60 * 60 * 1000 // total ms in a day
-  return Array.from({length: 7}, (_, i) => {
+  const salonWorkingDays = 7
+  return Array.from({length: salonWorkingDays}, (_, i) => {
     return new Date(todayTimestamp + i * incrementADay)
           .toDateString() // Sun Aug 10 2025
           .split(" ")[0]
