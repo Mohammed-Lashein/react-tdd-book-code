@@ -414,3 +414,25 @@ And also, each date is displayed in a format the we will need to manipulate usin
       }).format(timestamp)
    })
 ```
+____
+### Jest doesn't show a `NodeList` elements
+So On working on the tests for the `TimeSlotsTable` component, I have found that jest prints an empty object when I try to console log the `NodeList` returned by
+```js
+  const daysHeader = timeslotTable().querySelectorAll('thead th:not(:first-child)')
+```
+After asking chat, he explained that a `NodeList` content is available in the browser devtools because the nodelist **updates live in the browser**.   
+`JSDOM` lacks this feature, that's why you can't directly see the contents of the `NodeList` even though they exist.   
+
+What is the solution?  
+You can use a test that showed this failing error in the console like so
+```js
+// expect(received).toHaveLength(expected)
+// 
+//     Expected length: 7
+//     Received length: 2
+//     Received object: [<th>hi</th>, <th>helo</th>]
+// 
+//       133 |       console.log(daysHeader);
+//       134 |       
+//     > 135 |       expect(daysHeader).toHaveLength(7)
+```
