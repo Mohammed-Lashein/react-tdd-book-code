@@ -9,9 +9,7 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
   return Array.from({length: totalSlots}, (_, i) => {
       let timestamp = startTime + i * increment
 
-      return new Intl.DateTimeFormat("en-us", {
-        timeStyle: 'short'
-      }).format(timestamp)
+      return new Date(timestamp).toTimeString().substring(0,5)
    })
 }
 
