@@ -12,16 +12,31 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
       return new Date(timestamp).toTimeString().substring(0,5)
    })
 }
+function getWeekdaysStartingFrom(todayTimestamp) {
+  const incrementADay = 24 * 60 * 60 * 1000 // total ms in a day
+  return Array.from({length: 7}, (_, i) => {
+    return new Date(todayTimestamp + i * incrementADay)
+          .toDateString() // Sun Aug 10 2025
+          .split(" ")[0]
+  })
+}
 
 function TimeSlotsTable({
   salonOpensAt = 9, 
-  salonClosesAt = 13
+  salonClosesAt = 13,
+  todayTimestamp = 0
 }) {
   const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
+  const weekDays = getWeekdaysStartingFrom(todayTimestamp)
   return (
     <table id="timeslots">
+      <thead>
+        <tr>
+          <th></th>
+          {weekDays.map((day) => <th key={day}>{day}</th>)}
+        </tr>
+      </thead>
       <tbody>
-
       {timeslots.map((timeslot) => (
         <tr key={timeslot}>
           <th>{timeslot}</th>
@@ -37,7 +52,8 @@ export function AppointmentForm({
   selectedService = "",
   onSubmit,
   salonOpensAt,
-  salonClosesAt
+  salonClosesAt,
+  todayTimestamp
 }) {  
   const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService);
   return (
@@ -58,7 +74,11 @@ export function AppointmentForm({
         })}
       </select>
       <input type="submit" value="Submit" />
-      <TimeSlotsTable salonOpensAt={salonOpensAt} salonClosesAt={salonClosesAt}/>
+      <TimeSlotsTable 
+        salonOpensAt={salonOpensAt} 
+        salonClosesAt={salonClosesAt} 
+        todayTimestamp={todayTimestamp}
+      />
     </form>
   )
 }

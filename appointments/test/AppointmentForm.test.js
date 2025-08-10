@@ -116,5 +116,23 @@ describe("AppointmentForm", () => {
       expect(timesInDay[3].textContent).toEqual("10:30")
 
     })
+    it("renders an empty cell at the start of the header row", async () => {
+      await render(<AppointmentForm salonOpensAt={9} salonClosesAt={11}/>)
+      const firstRow = timeslotTable().querySelector('thead > tr')
+      expect(firstRow.firstChild.textContent).toBe('')
+    })
+    it.only("displays seven days of the week starting from today", async () => {
+      const todayTimestamp = Date.now()
+      const today = new Date()
+        .toDateString() // Sun Aug 10 2025
+        .split(" ")[0]
+
+      await render(<AppointmentForm salonOpensAt={9} salonClosesAt={11} todayTimestamp={todayTimestamp}/>)
+
+      const weekDays = timeslotTable().querySelectorAll('thead th:not(:first-child)')
+
+      expect(weekDays).toHaveLength(7)
+      expect(weekDays[0].textContent).toEqual(today)
+    })
   })
 })
