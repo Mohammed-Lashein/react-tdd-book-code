@@ -436,3 +436,9 @@ You can use a test that showed this failing error in the console like so
 //       134 |       
 //     > 135 |       expect(daysHeader).toHaveLength(7)
 ```
+
+Another solution is that you can convert the nodelist to an array like so
+```js
+  // I used a better var name than the one above
+const weekDays = Array.from(daysHeader)
+```
