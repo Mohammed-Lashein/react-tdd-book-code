@@ -113,7 +113,7 @@ describe("AppointmentForm", () => {
       expect(timesInDay).toHaveLength(4)
       expect(timesInDay[0].textContent).toEqual("09:00")
       expect(timesInDay[1].textContent).toEqual("09:30")
-      expect(timesInDay[2].textContent).toEqual("10:30")
+      expect(timesInDay[3].textContent).toEqual("10:30")
 
     })
   })
