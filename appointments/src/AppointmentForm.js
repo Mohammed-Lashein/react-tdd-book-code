@@ -15,16 +15,31 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
    })
 }
 
-function TimeSlotsTable() {
+function TimeSlotsTable({
+  salonOpensAt = 9, 
+  salonClosesAt = 13
+}) {
+  const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
   return (
-    <table id="timeslots"></table>
+    <table id="timeslots">
+      <tbody>
+
+      {timeslots.map((timeslot) => (
+        <tr key={timeslot}>
+          <th>{timeslot}</th>
+        </tr>
+      ))}
+      </tbody>
+    </table>
   )
 }
 
 export function AppointmentForm({
   services = [],
   selectedService = "",
-  onSubmit
+  onSubmit,
+  salonOpensAt,
+  salonClosesAt
 }) {  
   const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService);
   return (
@@ -45,7 +60,7 @@ export function AppointmentForm({
         })}
       </select>
       <input type="submit" value="Submit" />
-      <TimeSlotsTable />
+      <TimeSlotsTable salonOpensAt={salonOpensAt} salonClosesAt={salonClosesAt}/>
     </form>
   )
 }
