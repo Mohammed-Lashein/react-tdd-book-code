@@ -400,3 +400,15 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
 
 }
 ```
+I think we explained the `dailyTimeSlots` function in a good way, but there is a performance concern that we need to address.
+Quoting [from mdn docs: ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString) 
+>Every time `toLocaleTimeString` is called, it has to perform a search in a big database of localization strings, which is potentially inefficient. When the method is called many times with the same arguments, it is better to create a `Intl.DateTimeFormat` object and use its `format()` method, because a `DateTimeFormat` object remembers the arguments passed to it and may decide to cache a slice of the database, so future format calls can search for localization strings within a more constrained context.
+
+And also, each date is displayed in a format the we will need to manipulate using js string methods, and there is a better way than that:
+```js
+  // within the dailyTimeSlots function
+  return Array.from({length: totalSlots}, (_, i) => {
+      let timestamp = startTime + i * increment
+      return new Date(timestamp).toLocaleTimeString()
+   })
+```
