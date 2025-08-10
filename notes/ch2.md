@@ -409,6 +409,8 @@ And also, each date is displayed in a format the we will need to manipulate usin
   // within the dailyTimeSlots function
   return Array.from({length: totalSlots}, (_, i) => {
       let timestamp = startTime + i * increment
-      return new Date(timestamp).toLocaleTimeString()
+      return new Intl.DateTimeFormat("en-us", {
+        timeStyle: 'short'
+      }).format(timestamp)
    })
 ```
