@@ -7,9 +7,12 @@ function dailyTimeSlots(salonOpensAt, salonClosesAt) {
   const increment = 30 * 60 * 1000
 
   return Array.from({length: totalSlots}, (_, i) => {
-    let timestamp = startTime + i * increment
-    return new Date(timestamp).toLocaleTimeString()
-  })
+      let timestamp = startTime + i * increment
+
+      return new Intl.DateTimeFormat("en-us", {
+        timeStyle: 'short'
+      }).format(timestamp)
+   })
 }
 
 function TimeSlotsTable() {
