@@ -1,5 +1,17 @@
 import { useState } from 'react'
 
+function dailyTimeSlots(salonOpensAt, salonClosesAt) {
+  // Instead of cluttering the function body with explanations, I will add them in the notes dir
+  const totalSlots = (salonClosesAt - salonOpensAt) * 2
+  const startTime = new Date().setHours(salonOpensAt, 0, 0, 0)
+  const increment = 30 * 60 * 1000
+
+  return Array.from({length: totalSlots}, (_, i) => {
+    let timestamp = startTime + i * increment
+    return new Date(timestamp).toLocaleTimeString()
+  })
+}
+
 function TimeSlotsTable() {
   return (
     <table id="timeslots"></table>
