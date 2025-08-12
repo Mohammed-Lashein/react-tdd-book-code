@@ -22,7 +22,7 @@ function getWeekdaysStartingFrom(todayTimestamp) {
   })
 }
 
-function TimeSlotsTable({
+export function TimeSlotsTable({
   salonOpensAt = 9, 
   salonClosesAt = 13,
   todayTimestamp = new Date()
