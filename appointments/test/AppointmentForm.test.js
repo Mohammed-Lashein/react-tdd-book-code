@@ -121,7 +121,7 @@ describe("AppointmentForm", () => {
       const firstRow = timeslotTable().querySelector('thead > tr')
       expect(firstRow.firstChild.textContent).toBe('')
     })
-    it.only("displays seven days of the week starting from today", async () => {
+    it("displays seven days of the week starting from today", async () => {
       const todayTimestamp = Date.now()
       const today = new Date()
         .toDateString() // Sun Aug 10 2025
