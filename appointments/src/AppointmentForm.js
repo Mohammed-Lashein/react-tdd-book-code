@@ -25,7 +25,7 @@ function getWeekdaysStartingFrom(todayTimestamp) {
 export function TimeSlotsTable({
   salonOpensAt = 9, 
   salonClosesAt = 13,
-  todayTimestamp = new Date()
+  todayTimestamp = Date.now()
 }) {
   const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
   const weekDays = getWeekdaysStartingFrom(todayTimestamp)
