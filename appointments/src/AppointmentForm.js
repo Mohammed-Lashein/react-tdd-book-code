@@ -30,17 +30,22 @@ export function TimeSlotsTable({
   const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
   const weekDays = getWeekdaysStartingFrom(todayTimestamp)
   return (
-    <table id="timeslots">
-      <thead>
+    <table id="timeslots" className='mx-auto border border-black border-solid'>
+      <thead className='border border-black border-solid '>
         <tr>
-          <th></th>
-          {weekDays.map((day) => <th key={day}>{day}</th>)}
+          <th className='p-3'></th>
+          {weekDays.map((day) => <th key={day} className='p-3'>{day}</th>)}
         </tr>
       </thead>
       <tbody>
-      {timeslots.map((timeslot) => (
-        <tr key={timeslot}>
-          <th>{timeslot}</th>
+      {timeslots.map((timeslot,i) => (
+        <tr key={timeslot} className='p-3'>
+          {/* The logic in th className ensures that the timeslot th in the last row has a bottom border */}
+          <th 
+            className={`p-3 border border-black border-solid ${i !== timeslots.length - 1 ? 'border-b-transparent' : ''}`}
+          >
+            {timeslot}
+          </th>
         </tr>
       ))}
       </tbody>
