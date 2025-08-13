@@ -442,3 +442,9 @@ Another solution is that you can convert the nodelist to an array like so
   // I used a better var name than the one above
 const weekDays = Array.from(daysHeader)
 ```
+_____
+### `TimeSlotsTable` component complicated logic made easy
+The logic for rendering this component is a bit complex because it uses js `Date` object, which is hard to deal with.   
+So I [made this diagram](https://excalidraw.com/#json=ARKyGfkeZjwz6ujuASDq4,aZblo8hDgeR3rm59y1HCEg) as I thought it might help.
+
+<img src="./TimeSlotsTable-component.png" alt="A drawing that explains the logic to code in TimeSlotsTable component"/>
