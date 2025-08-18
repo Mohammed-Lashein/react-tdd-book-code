@@ -66,6 +66,22 @@ function getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, baseTimestamp
   return timestamp
 }
 
+function RadioButtonIfAvailable({ availableTimeSlots, weekDayTimestampWithAppointmentTimeAdded }) {
+  const timestampsMatch = availableTimeSlots.some(
+			(availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded
+		)
+	if (timestampsMatch) {
+		return (
+			<input
+				type='radio'
+				name='startsAt'
+				value={weekDayTimestampWithAppointmentTimeAdded}
+			></input>
+		)
+	}
+	return null
+}
+
 export function TimeSlotsTable({
   salonOpensAt = 9, 
   salonClosesAt = 15,
@@ -99,12 +115,7 @@ export function TimeSlotsTable({
             // or key={weekDay}?
             // I am not sure which one to choose
             <td className='w-10 p-4 text-center' key={i}>
-            {availableTimeSlots.some((availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded)
-            
-            ? <input type='radio' name="startsAt" value={weekDayTimestampWithAppointmentTimeAdded}></input> 
-          
-            : null
-            }
+            <RadioButtonIfAvailable availableTimeSlots={availableTimeSlots} weekDayTimestampWithAppointmentTimeAdded={weekDayTimestampWithAppointmentTimeAdded}/>
             </td>
           )
         })}
