@@ -101,6 +101,7 @@ describe("AppointmentForm", () => {
 
   describe("timeslot table", () => {
     const timeslotTable = () => container.querySelector("table#timeslots")
+    const startsAtField = (index) => container.querySelectorAll("input[name='startsAt']")[index]
     it("renders a table for time slots", async () => {
       await render(<AppointmentForm />)
 
@@ -133,6 +134,39 @@ describe("AppointmentForm", () => {
 
       expect(weekDays).toHaveLength(7)
       expect(weekDays[0].textContent).toEqual(today)
+    })
+    it("renders a radio button for each timeslot", async () => {
+      const today = new Date()
+      const availableTimeSlots = [
+        {startsAt: today.setHours(9,0,0,0)},
+        {startsAt: today.setHours(9,30,0,0)},
+        {startsAt: today.setHours(11,0,0,0)},
+      ]
+
+      await render(<AppointmentForm todayTimestamp={today} availableTimeSlots={availableTimeSlots}/>)
+      const cells = timeslotTable().querySelectorAll('td')
+
+      expect(cells[0].querySelector("input[type='radio']")).not.toBeNull()
+      expect(cells[7].querySelector("input[type='radio']")).not.toBeNull()
+    })
+    it("doesn't render radio buttons for unavailable timeslots", async () => {
+      await render(<AppointmentForm availableTimeSlots={[]}/>)
+
+      const timesOfDay = timeslotTable().querySelectorAll('input')
+      
+      expect(timesOfDay).toHaveLength(0)
+    })
+    it("sets radio button values to the startsAt value of the corresponding appointment", async () => {
+      const today = new Date()
+      const availableTimeSlots = [
+        {startsAt: today.setHours(9,0,0,0)},
+        {startsAt: today.setHours(9,30,0,0)},
+      ]
+
+      await render(<AppointmentForm todayTimestamp={today} availableTimeSlots={availableTimeSlots}/>)
+
+      expect(startsAtField(0).value).toEqual(availableTimeSlots[0].startsAt.toString())
+      expect(startsAtField(1).value).toEqual(availableTimeSlots[1].startsAt.toString())
     })
   })
 })
