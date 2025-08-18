@@ -448,3 +448,66 @@ The logic for rendering this component is a bit complex because it uses js `Date
 So I [made this diagram](https://excalidraw.com/#json=ARKyGfkeZjwz6ujuASDq4,aZblo8hDgeR3rm59y1HCEg) as I thought it might help.
 
 <img src="./TimeSlotsTable-component.png" alt="A drawing that explains the logic to code in TimeSlotsTable component"/>
+
+<!-- It seems that you need to add a blank line after the image tag, otherwise, for some strange reason that
+I don't know, the markdown will render as plain text.
+After asking chat, he told me that an html img tag is needed to be surrounded by blank lines so that the 
+markdown parser knows where the tag starts or ends.-->
+_______
+## Explanation for `TimeSlotsTable` execution flow.
+
+This component is a bit tricky, and since we came here to study TDD not complex logic, I thought adding some explanation for the execution flow will be handy.
+
+1. Pass these props to the component:
+   1. today's timestamp
+   2. salonOpensAt
+   3. salonClosesAt 
+2. Calculate the available timeslots for the salon using `dailyTimeSlots(salonOpensAt, salonClosesAt)`
+3. get weekdays using: 
+```js
+  const weekDays =  getWeekdaysStartingFrom(todayTimestamp)
+  // note that todayTimestamp is the prop passed to our component
+```
+4. `const weekdaysTimestamps = getWeekdaysTimeStampsStartingFrom(todayTimestamp)`
+Now we will fill the rows row by row.
+5. Loop over `timeslots` that we calculated in step 1, render each timeslot then create an **inner loop** in the loop that renders the timeslots
+6. What will this inner loop do?
+It will 
+  1. Loop over `weekDays` not because we need them, but we need this inner loop to be executed for each day in the week
+   2. Get the `weekDayTimestamp` (which we calculated previously in **step 4** and stored in an array) then add the `timeslot` hours and minutes to that timestamp
+```js
+  {weekDays.map((weekDay, i) => {
+    const weekDayTimestampWithAppointmentTimeAdded = getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, weekdaysTimestamps[i])
+  })
+  }
+```
+7. If the `weekDayTimestampWithAppointmentTimeAdded` matches the `availableTimeSlot.startsAt`, which is the value of the timeslot in timestamps, then render a `radio` button which has the value of that timestamp.
+```js
+  { availableTimeSlots.some((availableTimeSlot, i) => availableTimeSlot.startsAt ===             weekDayTimestampWithAppointmentTimeAdded)
+  
+  ? <input type='radio' name="startsAt" value={weekDayTimestampWithAppointmentTimeAdded}></input> 
+  : null
+  }
+```
+
+The logic is a bit complex because we depend on a lot of utilities, but nonetheless, their existence with these long names is so important so the code is a bit easier to read.
+
+Finally, you can try this code in `src/index.js` to see the component working in action:  
+```js
+const today = new Date()
+const tomorrow = today.setHours(9,0,0,0) + 24 * 60 * 60 * 1000
+const availableTimeSlots = [
+    {startsAt: new Date(tomorrow).getTime()},
+    {startsAt: today.setHours(9,30,0,0)},
+    {startsAt: today.setHours(12,30,0,0)},
+  ]
+
+const root = createRoot(document.getElementById("root"))
+
+root.render(
+  <TimeSlotsTable
+  	todayTimestamp={Date.now()}
+  	availableTimeSlots={availableTimeSlots}
+  />
+)
+```
