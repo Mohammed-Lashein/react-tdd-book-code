@@ -74,8 +74,10 @@ export function TimeSlotsTable({
 }) {
   const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
   const weekDays = getWeekdaysStartingFrom(todayTimestamp)
+  const weekdaysTimestamps = getWeekdaysTimeStampsStartingFrom(todayTimestamp)
+
   return (
-    <table id="timeslots" className='mx-auto border border-black border-solid'>
+    <table id="timeslots" className='mx-auto border border-black border-solid table-fixed w-[530px]'>
       <thead className='border border-black border-solid '>
         <tr>
           <th className='p-3'></th>
@@ -85,12 +87,27 @@ export function TimeSlotsTable({
       <tbody>
       {timeslots.map((timeslot,i) => (
         <tr key={timeslot} className='p-3'>
-          {/* The logic in th className ensures that the timeslot th in the last row has a bottom border */}
           <th 
             className={`p-3 border border-black border-solid ${i !== timeslots.length - 1 ? 'border-b-transparent' : ''}`}
           >
             {timeslot}
           </th>
+        {weekDays.map((weekDay, i) => {
+          const weekDayTimestampWithAppointmentTimeAdded = getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, weekdaysTimestamps[i])
+        
+          return (
+            // or key={weekDay}?
+            // I am not sure which one to choose
+            <td className='w-10 p-4 text-center' key={i}>
+            {availableTimeSlots.some((availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded)
+            
+            ? <input type='radio' name="startsAt" value={weekDayTimestampWithAppointmentTimeAdded}></input> 
+          
+            : null
+            }
+            </td>
+          )
+        })}
         </tr>
       ))}
       </tbody>
