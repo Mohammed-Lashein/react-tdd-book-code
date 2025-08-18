@@ -3,12 +3,22 @@ import { useState } from 'react'
 function dailyTimeSlots(salonOpensAt, salonClosesAt) {
   // Instead of cluttering the function body with explanations, I will add them in the notes dir
   const totalSlots = (salonClosesAt - salonOpensAt) * 2
+  /* 
+    MINDFUL THINKING: 
+    Does this function need the passed timestamp to the component instead of calling new Date() which may
+    show offset results if we are not starting from today?
+
+    => After looking into the writer's code, he used new Date() as me. Try passing the timestamp to this fn
+    and see if the behavior will differ
+
+    Since we start counting the available TimeSlots from today, there is no need to pass the timestamp to
+    the function as it can be calculated internally as we are doing.
+  */
   const startTime = new Date().setHours(salonOpensAt, 0, 0, 0)
   const increment = 30 * 60 * 1000
 
   return Array.from({length: totalSlots}, (_, i) => {
       let timestamp = startTime + i * increment
-
       return new Date(timestamp).toTimeString().substring(0,5)
    })
 }
@@ -22,10 +32,45 @@ function getWeekdaysStartingFrom(todayTimestamp) {
   })
 }
 
+/* 
+  Since the writer made the above utility getWeekdaysStartingFrom return timestamps and not the day names,
+he was able to get the timestamps numbers
+
+  So how will we get the day names?
+=> From the toShortDate() utility in the repo
+*/
+function getWeekdaysTimeStampsStartingFrom(todayTimestamp) {
+  const incrementADay = 24 * 60 * 60 * 1000 // total ms in a day
+  const salonWorkingDays = 7
+  const todayMidnight = new Date(todayTimestamp).setHours(0,0,0,0)
+  return Array.from({length: salonWorkingDays}, (_, i) => {
+    return new Date(todayMidnight + i * incrementADay)
+          .getTime()
+  })
+}
+
+function parseHoursAndMinutesFromTimeSlot(timeslot) {
+  let [hours, minutes] = timeslot.split(":")
+  hours = Number(hours)
+  minutes = Number(minutes)
+  return {hours, minutes}
+}
+
+function getTimeStampFromHoursAndMinutes(baseTimestamp, hours, minutes) {
+  return new Date(baseTimestamp).setHours(hours, minutes)
+}
+
+function getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, baseTimestamp) {
+  const {hours, minutes} = parseHoursAndMinutesFromTimeSlot(timeslot)
+  const timestamp = getTimeStampFromHoursAndMinutes(baseTimestamp, hours, minutes)
+  return timestamp
+}
+
 export function TimeSlotsTable({
   salonOpensAt = 9, 
-  salonClosesAt = 13,
-  todayTimestamp = Date.now()
+  salonClosesAt = 15,
+  todayTimestamp = Date.now(),
+  availableTimeSlots = []
 }) {
   const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
   const weekDays = getWeekdaysStartingFrom(todayTimestamp)
@@ -59,7 +104,8 @@ export function AppointmentForm({
   onSubmit,
   salonOpensAt,
   salonClosesAt,
-  todayTimestamp
+  todayTimestamp,
+  availableTimeSlots
 }) {  
   const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService);
   return (
@@ -84,6 +130,7 @@ export function AppointmentForm({
         salonOpensAt={salonOpensAt} 
         salonClosesAt={salonClosesAt} 
         todayTimestamp={todayTimestamp}
+        availableTimeSlots={availableTimeSlots}
       />
     </form>
   )
