@@ -180,11 +180,14 @@ export function AppointmentForm({
       startsAt: parseInt(value)
     }))
   })
-  
+  const handleFormSubmission = (e) => {
+    e.preventDefault()
+    onSubmit(appointment)
+  }
 	return (
 		<form
 			id='appointment'
-			onSubmit={() => onSubmit(appointment)}
+			onSubmit={(e) => handleFormSubmission(e)}
       className='pt-8 text-center'
 		>
 			<label htmlFor='service'>Service: </label>
