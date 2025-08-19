@@ -65,16 +65,18 @@ function getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, baseTimestamp
 	return timestamp
 }
 
-function RadioButtonIfAvailable({ availableTimeSlots, weekDayTimestampWithAppointmentTimeAdded }) {
+function RadioButtonIfAvailable({ availableTimeSlots, weekDayTimestampWithAppointmentTimeAdded, checkedTimeslotTimestamp }) {
 	const timestampsMatch = availableTimeSlots.some(
 		(availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded
 	)
 	if (timestampsMatch) {
+    const isChecked = weekDayTimestampWithAppointmentTimeAdded === checkedTimeslotTimestamp
 		return (
 			<input
 				type='radio'
 				name='startsAt'
 				value={weekDayTimestampWithAppointmentTimeAdded}
+        checked={isChecked}
 			></input>
 		)
 	}
@@ -86,6 +88,7 @@ export function TimeSlotsTable({
 	salonClosesAt = 15,
 	todayTimestamp = Date.now(),
 	availableTimeSlots = [],
+  checkedTimeslotTimestamp
 }) {
 	const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
 	const weekDays = getWeekdaysStartingFrom(todayTimestamp)
@@ -136,6 +139,7 @@ export function TimeSlotsTable({
 									<RadioButtonIfAvailable
 										availableTimeSlots={availableTimeSlots}
 										weekDayTimestampWithAppointmentTimeAdded={weekDayTimestampWithAppointmentTimeAdded}
+                    checkedTimeslotTimestamp={checkedTimeslotTimestamp}
 									/>
 								</td>
 							)
@@ -155,9 +159,11 @@ export function AppointmentForm({
 	salonClosesAt,
 	todayTimestamp,
 	availableTimeSlots,
+  appointmentData = {}
 }) {
 	const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService)
-	return (
+  const [appointment, setAppointment] = useState(appointmentData);
+  return (
 		<form
 			id='appointment'
 			onSubmit={() => onSubmit(appointmentSelectedService)}
@@ -190,6 +196,7 @@ export function AppointmentForm({
 				salonClosesAt={salonClosesAt}
 				todayTimestamp={todayTimestamp}
 				availableTimeSlots={availableTimeSlots}
+        checkedTimeslotTimestamp={appointment.startsAt}
 			/>
 		</form>
 	)

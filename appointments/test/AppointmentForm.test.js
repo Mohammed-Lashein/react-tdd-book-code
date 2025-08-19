@@ -1,5 +1,6 @@
 import { createContainer } from '../src/exercises/ch1/test/domManipulators';
 import {AppointmentForm} from '../src/AppointmentForm.js'
+import { fireEvent } from '@testing-library/dom';
 
 describe("AppointmentForm", () => {
   let render, container
@@ -167,6 +168,20 @@ describe("AppointmentForm", () => {
 
       expect(startsAtField(0).value).toEqual(availableTimeSlots[0].startsAt.toString())
       expect(startsAtField(1).value).toEqual(availableTimeSlots[1].startsAt.toString())
+    })
+    it("pre-selects the existing appointment value", async () => {
+      const today = new Date()
+      const availableTimeSlots = [
+        {startsAt: today.setHours(9,0,0,0)},
+        {startsAt: today.setHours(9,30,0,0)},
+      ]
+      const appointment = {
+        startsAt: availableTimeSlots[1].startsAt
+      }
+
+      await render(<AppointmentForm todayTimestamp={today} availableTimeSlots={availableTimeSlots} appointmentData={appointment}/>)
+
+      expect(startsAtField(1).checked).toEqual(true)
     })
   })
 })
