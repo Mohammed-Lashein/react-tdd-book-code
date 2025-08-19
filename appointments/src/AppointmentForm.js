@@ -65,7 +65,11 @@ function getTimeStampToCompareWithAvailableSlotTimestamp(timeslot, baseTimestamp
 	return timestamp
 }
 
-function RadioButtonIfAvailable({ availableTimeSlots, weekDayTimestampWithAppointmentTimeAdded, checkedTimeslotTimestamp }) {
+function RadioButtonIfAvailable({
+	availableTimeSlots,
+	weekDayTimestampWithAppointmentTimeAdded,
+	checkedTimeslotTimestamp,
+}) {
 	const timestampsMatch = availableTimeSlots.some(
 		(availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded
 	)
@@ -88,7 +92,7 @@ export function TimeSlotsTable({
 	salonClosesAt = 15,
 	todayTimestamp = Date.now(),
 	availableTimeSlots = [],
-  checkedTimeslotTimestamp
+	checkedTimeslotTimestamp,
 }) {
 	const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
 	const weekDays = getWeekdaysStartingFrom(todayTimestamp)
@@ -159,7 +163,7 @@ export function AppointmentForm({
 	salonClosesAt,
 	todayTimestamp,
 	availableTimeSlots,
-  appointmentData = {}
+	appointmentData = {},
 }) {
 	const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService)
   const [appointment, setAppointment] = useState(appointmentData);
