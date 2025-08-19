@@ -185,13 +185,15 @@ export function AppointmentForm({
 		<form
 			id='appointment'
 			onSubmit={() => onSubmit(appointment)}
+      className='pt-8 text-center'
 		>
-			<label htmlFor='service'></label>
+			<label htmlFor='service'>Service: </label>
 			<select
 				name='service'
 				id='service'
 				value={appointment.service}
 				onChange={(e) => handleSelectboxChange(e)}
+        className='w-40 p-1 mx-auto border border-purple-300 border-solid rounded-md'
 			>
 				<option value=''></option>
 				{services.map((service) => {
@@ -208,6 +210,7 @@ export function AppointmentForm({
 			<input
 				type='submit'
 				value='Submit'
+        className='block px-4 py-2 mx-auto my-4 text-white bg-blue-600 rounded-md cursor-pointer hover:bg-blue-500'
 			/>
 			<TimeSlotsTable
 				salonOpensAt={salonOpensAt}
