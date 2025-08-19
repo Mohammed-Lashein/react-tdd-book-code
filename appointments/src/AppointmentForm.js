@@ -161,16 +161,19 @@ export function TimeSlotsTable({
 
 export function AppointmentForm({
 	services = [],
-	selectedService = '',
 	onSubmit,
 	salonOpensAt,
 	salonClosesAt,
 	todayTimestamp,
 	availableTimeSlots,
-	appointmentData = {},
+	appointmentData = {
+    service: ''
+  },
 }) {
-	const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService)
 	const [appointment, setAppointment] = useState(appointmentData)
+  function handleSelectboxChange(e) {
+    setAppointment((appointment) => ({...appointment, [e.target.name]: e.target.value}))
+  }
   const handleStartsAtChange = useCallback(({target: {value}}) => {
     setAppointment(() => ({
       ...appointment,
@@ -181,15 +184,14 @@ export function AppointmentForm({
 	return (
 		<form
 			id='appointment'
-			// onSubmit={() => onSubmit(appointmentSelectedService)}
 			onSubmit={() => onSubmit(appointment)}
 		>
 			<label htmlFor='service'></label>
 			<select
 				name='service'
 				id='service'
-				value={selectedService}
-				onChange={(e) => setAppointmentSelectedService(e.target.value)}
+				value={appointment.service}
+				onChange={(e) => handleSelectboxChange(e)}
 			>
 				<option value=''></option>
 				{services.map((service) => {

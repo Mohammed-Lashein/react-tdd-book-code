@@ -51,10 +51,13 @@ describe('AppointmentForm', () => {
 		}
 		it('preselects an existing value', async () => {
 			const services = ['service1', 'service2']
+      const appointment = {
+        service: 'service2'
+      }
 			await render(
 				<AppointmentForm
 					services={services}
-					selectedService={'service2'}
+					appointmentData={appointment}
 				/>
 			)
 
@@ -81,7 +84,7 @@ describe('AppointmentForm', () => {
 			await render(
 				<AppointmentForm
 					services={services}
-					onSubmit={(service) => expect(service).toEqual('')}
+					onSubmit={({service}) => expect(service).toEqual('')}
 				/>
 			)
 
@@ -94,11 +97,14 @@ describe('AppointmentForm', () => {
 			expect.hasAssertions()
 
 			const services = ['service1', 'service2']
+      const appointment = {
+        service: 'service2'
+      }
 			await render(
 				<AppointmentForm
 					services={services}
-					selectedService={'service2'}
-					onSubmit={(service) => expect(service).toEqual('service2')}
+          appointmentData={appointment}
+					onSubmit={({service}) => expect(service).toEqual('service2')}
 				/>
 			)
 
