@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 function dailyTimeSlots(salonOpensAt, salonClosesAt) {
 	// Instead of cluttering the function body with explanations, I will add them in the notes dir
@@ -69,19 +69,21 @@ function RadioButtonIfAvailable({
 	availableTimeSlots,
 	weekDayTimestampWithAppointmentTimeAdded,
 	checkedTimeslotTimestamp,
+	handleStartsAtChange,
 }) {
 	const timestampsMatch = availableTimeSlots.some(
 		(availableTimeSlot, i) => availableTimeSlot.startsAt === weekDayTimestampWithAppointmentTimeAdded
 	)
 	if (timestampsMatch) {
-    const isChecked = weekDayTimestampWithAppointmentTimeAdded === checkedTimeslotTimestamp
+		const isChecked = weekDayTimestampWithAppointmentTimeAdded === checkedTimeslotTimestamp
 		return (
 			<input
 				type='radio'
 				name='startsAt'
 				value={weekDayTimestampWithAppointmentTimeAdded}
-        checked={isChecked}
-			></input>
+				checked={isChecked}
+				onChange={(e) => handleStartsAtChange(e)}
+			/>
 		)
 	}
 	return null
@@ -93,6 +95,7 @@ export function TimeSlotsTable({
 	todayTimestamp = Date.now(),
 	availableTimeSlots = [],
 	checkedTimeslotTimestamp,
+  handleStartsAtChange,
 }) {
 	const timeslots = dailyTimeSlots(salonOpensAt, salonClosesAt)
 	const weekDays = getWeekdaysStartingFrom(todayTimestamp)
@@ -143,7 +146,8 @@ export function TimeSlotsTable({
 									<RadioButtonIfAvailable
 										availableTimeSlots={availableTimeSlots}
 										weekDayTimestampWithAppointmentTimeAdded={weekDayTimestampWithAppointmentTimeAdded}
-                    checkedTimeslotTimestamp={checkedTimeslotTimestamp}
+										checkedTimeslotTimestamp={checkedTimeslotTimestamp}
+                    handleStartsAtChange={handleStartsAtChange}
 									/>
 								</td>
 							)
@@ -166,11 +170,19 @@ export function AppointmentForm({
 	appointmentData = {},
 }) {
 	const [appointmentSelectedService, setAppointmentSelectedService] = useState(selectedService)
-  const [appointment, setAppointment] = useState(appointmentData);
-  return (
+	const [appointment, setAppointment] = useState(appointmentData)
+  const handleStartsAtChange = useCallback(({target: {value}}) => {
+    setAppointment(() => ({
+      ...appointment,
+      startsAt: parseInt(value)
+    }))
+  })
+  
+	return (
 		<form
 			id='appointment'
-			onSubmit={() => onSubmit(appointmentSelectedService)}
+			// onSubmit={() => onSubmit(appointmentSelectedService)}
+			onSubmit={() => onSubmit(appointment)}
 		>
 			<label htmlFor='service'></label>
 			<select
@@ -200,7 +212,8 @@ export function AppointmentForm({
 				salonClosesAt={salonClosesAt}
 				todayTimestamp={todayTimestamp}
 				availableTimeSlots={availableTimeSlots}
-        checkedTimeslotTimestamp={appointment.startsAt}
+				checkedTimeslotTimestamp={appointment.startsAt}
+        handleStartsAtChange={handleStartsAtChange}
 			/>
 		</form>
 	)
